@@ -1,8 +1,15 @@
 # Leather
 
-A modern money management app written in Elixir, Phoenix, React, and Redux. 💰
+A modern money management app written in [Elixir](https://elixir-lang.org/),
+[Phoenix](http://www.phoenixframework.org/),
+[React](https://facebook.github.io/react/), and [Redux](http://redux.js.org/).
+Integrates with [Plaid](https://plaid.com/) for auto-importing of transactions
+from thousands of banks and bank account types (checking, savings, investments,
+etc.)
 
 Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
+
+![https://leatherapp.s3.amazonaws.com/breaking-cash.gif](https://leatherapp.s3.amazonaws.com/breaking-cash.gif)
 
 ### Run locally
 
