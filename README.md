@@ -30,7 +30,10 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 2. `heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir`
 3. `heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static`
 4. `heroku addons:create heroku-postgresql:hobby-dev`
-5. `heroku config:set POOL_SIZE=18`
+5. `heroku config:set POOL_SIZE="18"`
 6. `mix phoenix.gen.secret`
 7. `heroku config:set SECRET_KEY_BASE="<generated-key-in-previous-step>"`
-8. `git push heroku master`
+8. `heroku domains:add <your-domain>`
+9. `heroku config:set HEROKU_DOMAIN="<your-domain>"`
+10. `heroku run mix ecto.create`
+11. `heroku run mix ecto.migrate`
