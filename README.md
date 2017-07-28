@@ -26,7 +26,11 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 
 ### Deploy to Heroku
 
-1. `heroku create <appname>`
+1. `heroku create <app-name>`
 2. `heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir`
 3. `heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static`
-4. `git push heroku master`
+4. `heroku addons:create heroku-postgresql:hobby-dev`
+5. `heroku config:set POOL_SIZE=18`
+6. `mix phoenix.gen.secret`
+7. `heroku config:set SECRET_KEY_BASE="<generated-key-in-previous-step>"`
+8. `git push heroku master`
