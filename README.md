@@ -23,3 +23,10 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 8. `mix ecto.create`
 9. `mix phoenix.server`
 10. Visit [http://localhost:4000/](http://localhost:4000/).
+
+### Deploy to Heroku
+
+1. `heroku create <appname>`
+2. `heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir`
+3. `heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static`
+4. `git push heroku master`
