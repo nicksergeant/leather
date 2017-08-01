@@ -2,6 +2,6 @@ deploy:
 	git push heroku master
 
 run:
-	mix phoenix.server
+	mix phx.server
 
 .PHONY: deploy run
