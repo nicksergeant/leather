@@ -35,3 +35,4 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 7. `heroku config:set SECRET_KEY_BASE="<generated-key-in-previous-step>"`
 8. `heroku domains:add <your-domain>`
 9. `heroku config:set HEROKU_DOMAIN="<your-domain>"`
+10. `heroku config:set GZIP_ENABLED="true"`
