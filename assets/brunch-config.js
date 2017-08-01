@@ -45,8 +45,9 @@ exports.config = {
   // Configure your plugins
   plugins: {
     babel: {
-      // Do not use ES6 compiler in vendor code
-      ignore: [/vendor/]
+      ignore: [/vendor/],
+      presets: ['react', 'env'],
+      plugins: ['transform-object-rest-spread']
     }
   },
 
@@ -57,6 +58,17 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: [
+      'history',
+      'phoenix',
+      'phoenix_html',
+      'react',
+      'react-dom',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux'
+    ]
   }
 };

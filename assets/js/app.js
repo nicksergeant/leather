@@ -1,21 +1,35 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import App from './components/App';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
+import { createStore, combineReducers } from 'redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
+const reducers = [
+  () => {
+    return {};
+  }
+];
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    routing: routerReducer
+  })
+);
 
-// import socket from "./socket"
+window.store = store;
+
+const history = syncHistoryWithStore(browserHistory, store);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App} />
+      <Route path="/foo" component={App} />
+      <Route path="/bar" component={App} />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+);
