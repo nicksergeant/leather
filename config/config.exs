@@ -10,10 +10,10 @@ config :leather,
   ecto_repos: [Leather.Repo]
 
 # Configures the endpoint
-config :leather, Leather.Endpoint,
+config :leather, LeatherWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "BkziIeqM6Jvg/zj9xw+DPJLb2/+F96S3XcYfHhUOzpGjSC+te2McMAnnj/Gv+xVR",
-  render_errors: [view: Leather.ErrorView, accepts: ~w(html json)],
+  secret_key_base: "MGo9JCoFRW1YCVWqdIWtYupyVhSF1DblcU/Xr/KW1x+MTjCbdGwd1bbVOs/w1D1U",
+  render_errors: [view: LeatherWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Leather.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
