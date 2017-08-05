@@ -17,7 +17,8 @@ const reducers = [
 
 const store = createStore(
   combineReducers({
-    ...reducers, routing: routerReducer
+    ...reducers,
+    routing: routerReducer
   })
 );
 

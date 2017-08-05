@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :leather, Leather.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "leather",
+  password: "",
   database: "leather_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
