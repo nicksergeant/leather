@@ -13,6 +13,7 @@ class ForgotPassword extends Component {
             style={{ margin: '50px 0 60px 0' }}
           >
             <div className="column is-half is-narrow">
+              <h1 className="title">Forgot password</h1>
               <div className="field">
                 <label className="label">Email</label>
                 <div className="control has-icons-left has-icons-right">
