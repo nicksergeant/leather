@@ -35,6 +35,7 @@ defmodule Leather.Mixfile do
     [
       {:cowboy, "~> 1.0"},
       {:dogma, "~> 0.1", only: :dev},
+      {:exfmt, "0.4.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.2"},
