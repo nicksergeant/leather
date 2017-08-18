@@ -16,8 +16,8 @@ defmodule LeatherWeb.Router do
   scope "/", LeatherWeb do
     pipe_through :browser # Use the default browser stack
 
-    resources "/users", UserController, only: [:index, :show, :create]
     get "/signup", UserController, :new
+    post "/signup", UserController, :create
     get "/*path", PageController, :index
   end
 
