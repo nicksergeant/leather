@@ -4,7 +4,7 @@
     style="margin: 50px 0 60px 0"
     >
     <div class="column is-half is-narrow">
-      <%= form_for @changeset, user_path(@conn, :new), fn f -> %>
+      <%= form_for @changeset, user_path(@conn, :signup), fn f -> %>
         <%= if @changeset.action do %>
           <div class="notification is-danger">
             <p>Oops, something went wrong! Please check the errors below.</p>
@@ -17,7 +17,7 @@
             <%= text_input f, :username, placeholder: "Username", class: input_class(f, :username) %>
             <%= error_tag f, :username %>
             <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-            <%= if input_has_error(f, :username) do %>
+            <%= if Enum.count(error_tag(f, :username)) > 0 do %>
               <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
             <% end %>
           </div>
@@ -28,7 +28,7 @@
             <%= password_input f, :password, placeholder: "Password", class: input_class(f, :password) %>
             <%= error_tag f, :password %>
             <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
-            <%= if input_has_error(f, :password) do %>
+            <%= if Enum.count(error_tag(f, :password)) > 0 do %>
               <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
             <% end %>
           </div>

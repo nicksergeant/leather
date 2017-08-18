@@ -1,11 +1,19 @@
 defmodule LeatherWeb.UserController do
   use LeatherWeb, :controller
+
+  plug :authenticate when action in [:index]
   alias Leather.Repo
   alias Leather.User
 
-  def new(conn, _params) do
+  def index(conn, _params) do
+    users = Repo.all(User)
+    render conn, "index.html", users: users
+  end
+
+
+  def signup(conn, _params) do
     changeset = User.registration_changeset(%User{})
-    render conn, "new.html", changeset: changeset
+    render conn, "signup.html", changeset: changeset
   end
 
 
@@ -18,7 +26,19 @@ defmodule LeatherWeb.UserController do
         |> redirect(to: "/")
 
       {:error, changeset} ->
-        render conn, "new.html", changeset: changeset
+        render conn, "signup.html", changeset: changeset
+    end
+  end
+
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access this page.")
+      |> redirect(to: user_path(conn, :signup))
+      |> halt()
     end
   end
 end

@@ -21,12 +21,6 @@ defmodule LeatherWeb.ErrorHelpers do
   end
 
 
-  @doc "Returns a boolean indicating whether the field has an error or not."
-  def input_has_error(form, field) do
-    Enum.count(Keyword.get_values(form.errors, field)) > 0
-  end
-
-
   @doc "Translates an error message using gettext."
   def translate_error({msg, opts}) do
     # Because error messages were defined within Ecto, we must
