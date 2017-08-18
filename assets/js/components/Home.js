@@ -16,7 +16,10 @@ class Login extends Component {
               <div className="message-body" style={{ textAlign: 'center' }}>
                 <p>Let's do this. 🎉</p>
                 <br />
-                <Link className="button" to="/login">Login</Link>
+                <a className="button" href="/login">Login</a>
+                <br />
+                <br />
+                <a className="button" href="/signup">Signup</a>
               </div>
             </article>
           </div>

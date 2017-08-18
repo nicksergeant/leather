@@ -1,22 +1,33 @@
 defmodule LeatherWeb.ErrorHelpers do
-  @moduledoc """
-  Conveniences for translating and building error messages.
-  """
+  @moduledoc "Conveniences for translating and building error messages."
 
   use Phoenix.HTML
 
-  @doc """
-  Generates tag for inlined form input errors.
-  """
+  @doc "Generates tag for inlined form input errors."
   def error_tag(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn (error) ->
-      content_tag :span, translate_error(error), class: "help-block"
-    end)
+    Enum.map Keyword.get_values(form.errors, field),
+             fn error ->
+               content_tag(:p, translate_error(error), class: "help is-danger")
+             end
   end
 
-  @doc """
-  Translates an error message using gettext.
-  """
+
+  @doc "Generates input class based on whether the field has an error or not."
+  def input_class(form, field) do
+    case Keyword.get_values(form.errors, field) do
+      [_error] -> "input is-danger"
+      [] -> "input"
+    end
+  end
+
+
+  @doc "Returns a boolean indicating whether the field has an error or not."
+  def input_has_error(form, field) do
+    Enum.count(Keyword.get_values(form.errors, field)) > 0
+  end
+
+
+  @doc "Translates an error message using gettext."
   def translate_error({msg, opts}) do
     # Because error messages were defined within Ecto, we must
     # call the Gettext module passing our Gettext backend. We
@@ -32,9 +43,9 @@ defmodule LeatherWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(LeatherWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext LeatherWeb.Gettext, "errors", msg, msg, count, opts
     else
-      Gettext.dgettext(LeatherWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext LeatherWeb.Gettext, "errors", msg, opts
     end
   end
 end

@@ -33,6 +33,8 @@ defmodule Leather.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 0.12.1"},
+      {:comeonin, "~> 4.0"},
       {:cowboy, "~> 1.0"},
       {:dogma, "~> 0.1", only: :dev},
       {:exfmt, "~> 0.4", only: :dev},
@@ -42,8 +44,8 @@ defmodule Leather.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
+      {:plaidex, "~> 0.1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:plaidex, "~> 0.1.0"}
     ]
   end
 

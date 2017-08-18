@@ -1,0 +1,47 @@
+<div class="container is-fullhd">
+  <div
+    class="columns is-mobile is-centered"
+    style="margin: 50px 0 60px 0"
+    >
+    <div class="column is-half is-narrow">
+      <%= form_for @changeset, user_path(@conn, :create), fn f -> %>
+        <%= if @changeset.action do %>
+          <div class="notification is-danger">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
+        <h1 class="title">Signup</h1>
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control has-icons-left has-icons-right">
+            <%= text_input f, :username, placeholder: "Username", class: input_class(f, :username) %>
+            <%= error_tag f, :username %>
+            <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+            <%= if input_has_error(f, :username) do %>
+              <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <%= password_input f, :password, placeholder: "Password", class: input_class(f, :password) %>
+            <%= error_tag f, :password %>
+            <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
+            <%= if input_has_error(f, :password) do %>
+              <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Submit", class: "button is-primary" %>
+          </div>
+          <div class="control">
+            <a class="button is-link" href="/login">Login</a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
