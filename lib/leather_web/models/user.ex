@@ -1,6 +1,7 @@
 defmodule Leather.User do
   @moduledoc "The User model for Leather."
 
+  alias Leather.User
   import Ecto.Changeset
   use Ecto.Schema
 
@@ -9,18 +10,22 @@ defmodule Leather.User do
     field :password_hash, :string
     field :username, :string
     timestamps()
+    has_many :accounts, Leather.Account
   end
-  def changeset(model, params \\ :invalid) do
-    model
-    |> cast(params, ~w(username))
+
+  @doc false
+  def changeset(%User{} = user, attrs \\ :invalid) do
+    user
+    |> cast(attrs, [:username])
     |> validate_length(:username, min: 1, max: 20)
   end
 
 
-  def registration_changeset(model, params \\ :invalid) do
-    model
-    |> changeset(params)
-    |> cast(params, ~w(password))
+  @doc false
+  def registration_changeset(%User{} = user, attrs \\ :invalid) do
+    user
+    |> changeset(attrs)
+    |> cast(attrs, [:password])
     |> validate_length(:password, min: 6, max: 100)
     |> put_pass_hash()
   end
