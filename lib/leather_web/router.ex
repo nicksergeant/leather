@@ -17,9 +17,12 @@ defmodule LeatherWeb.Router do
   scope "/", LeatherWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/users", UserController, :index
-    get "/signup", UserController, :signup
-    post "/signup", UserController, :create
+    delete "/logout", UserController, :logout
+    get "/login", UserController, :login_form
+    get "/signup", UserController, :signup_form
+    post "/login", UserController, :login
+    post "/signup", UserController, :signup
+
     get "/*path", PageController, :index
   end
 
