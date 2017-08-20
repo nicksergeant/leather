@@ -10,6 +10,8 @@ defmodule Leather.Transaction do
     field :name, :string
     field :official_name, :string
     field :type, :string
+    field :source, :string
+    field :meta, :map
     timestamps()
     belongs_to :account, Leather.Account
   end
@@ -17,7 +19,7 @@ defmodule Leather.Transaction do
   @doc false
   def changeset(%Transaction{} = transaction, attrs) do
     transaction
-    |> cast(attrs, [:name, :official_name, :type, :amount])
+    |> cast(attrs, [:name, :official_name, :type, :amount, :source, :meta])
     |> validate_required([:name, :official_name, :type, :amount])
   end
 end
