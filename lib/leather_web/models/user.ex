@@ -14,19 +14,11 @@ defmodule Leather.User do
   end
 
   @doc false
-  def changeset(%User{} = user, attrs \\ :invalid) do
-    user
-    |> cast(attrs, [:email])
-    |> validate_length(:email, min: 5, max: 100)
-  end
-
-
-  @doc false
   def registration_changeset(%User{} = user, attrs \\ :invalid) do
     user
-    |> changeset(attrs)
-    |> cast(attrs, [:password])
+    |> cast(attrs, [:email, :password])
     |> validate_format(:email, ~r/@/)
+    |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password)
     |> unique_constraint(:email)
