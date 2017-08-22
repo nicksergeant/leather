@@ -12,12 +12,12 @@
         <% end %>
         <h1 class="title">Signup</h1>
         <div class="field">
-          <label class="label">Username</label>
+          <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
-            <%= text_input f, :username, class: input_class(f, :username) %>
-            <%= error_tag f, :username %>
+            <%= text_input f, :email, class: input_class(f, :email) %>
+            <%= error_tag f, :email %>
             <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-            <%= if Enum.count(error_tag(f, :username)) > 0 do %>
+            <%= if Enum.count(error_tag(f, :email)) > 0 do %>
               <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
             <% end %>
           </div>

@@ -17,9 +17,9 @@ defmodule LeatherWeb.UserController do
   end
 
 
-  def login(conn, %{"session" => %{"username" => user, "password" => pass}}) do
-    case Leather.Auth.login_by_username_and_pass(conn,
-                                                 user,
+  def login(conn, %{"session" => %{"email" => email, "password" => pass}}) do
+    case Leather.Auth.login_by_email_and_pass(conn,
+                                                 email,
                                                  pass,
                                                  repo: Repo) do
       {:ok, conn} ->
@@ -29,7 +29,7 @@ defmodule LeatherWeb.UserController do
 
       {:error, _reason, conn} ->
         conn
-        |> put_flash(:error, "Invalid username/password combination")
+        |> put_flash(:error, "Invalid email/password combination")
         |> render("login.html")
     end
   end
@@ -48,7 +48,7 @@ defmodule LeatherWeb.UserController do
       {:ok, user} ->
         conn
         |> Leather.Auth.login(user)
-        |> put_flash(:info, "#{user.username} created!")
+        |> put_flash(:info, "#{user.email} created!")
         |> redirect(to: "/")
 
       {:error, changeset} ->

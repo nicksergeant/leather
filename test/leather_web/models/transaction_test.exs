@@ -4,7 +4,7 @@ defmodule Leather.TransactionTest do
 
   test "A new transaction" do
     {:ok, user} = %Leather.User{}
-                  |> Leather.User.changeset(%{username: "lebowski"})
+                  |> Leather.User.changeset(%{email: "leb@owski.com"})
                   |> Repo.insert
 
     {:ok, _account} = Leather.Account.changeset(

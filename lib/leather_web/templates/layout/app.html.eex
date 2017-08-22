@@ -12,7 +12,7 @@
   <body>
     <%= if @current_user do %>
       <div style="margin: 10px;" class="notification">
-        You are logged in as <%= @current_user.username %>.
+        You are logged in as <%= @current_user.email %>.
         <%= form_for @conn, user_path(@conn, :logout), [as: :session], fn f -> %>
           <input type="hidden" name="_method" value="delete">
           <button class="button" style="margin-top: 10px;" type="submit">Log out</button>

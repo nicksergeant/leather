@@ -3,11 +3,13 @@ defmodule Leather.Repo.Migrations.CreateTransactions do
 
   def change do
     create table(:transactions) do
+      add :account_id, references(:accounts, on_delete: :nothing)
+      add :amount, :integer
+      add :meta, :map
       add :name, :string
       add :official_name, :string
+      add :source, :string, default: "manual", size: 16
       add :type, :string
-      add :amount, :integer
-      add :account_id, references(:accounts, on_delete: :nothing)
 
       timestamps()
     end

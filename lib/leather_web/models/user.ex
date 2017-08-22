@@ -8,7 +8,7 @@ defmodule Leather.User do
   schema "users" do
     field :password, :string, virtual: true
     field :password_hash, :string
-    field :username, :string
+    field :email, :string
     timestamps()
     has_many :accounts, Leather.Account
   end
@@ -16,8 +16,8 @@ defmodule Leather.User do
   @doc false
   def changeset(%User{} = user, attrs \\ :invalid) do
     user
-    |> cast(attrs, [:username])
-    |> validate_length(:username, min: 1, max: 20)
+    |> cast(attrs, [:email])
+    |> validate_length(:email, min: 1, max: 20)
   end
 
 
@@ -26,9 +26,10 @@ defmodule Leather.User do
     user
     |> changeset(attrs)
     |> cast(attrs, [:password])
+    |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password)
-    |> unique_constraint(:username)
+    |> unique_constraint(:email)
     |> put_pass_hash()
   end
 
