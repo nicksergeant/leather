@@ -1,6 +1,8 @@
 defmodule LeatherWeb.UserController do
   use LeatherWeb, :controller
-  # plug :authenticate when action in [:index]
+
+  plug :forbid_authenticated_users when action in
+        [:login, :login_form, :signup, :signup_form]
   alias Leather.Repo
   alias Leather.User
 
@@ -55,7 +57,7 @@ defmodule LeatherWeb.UserController do
   end
 
 
-  defp authenticate(conn, _opts) do
+  defp require_authentication(conn, _opts) do
     if conn.assigns.current_user do
       conn
     else
@@ -63,6 +65,17 @@ defmodule LeatherWeb.UserController do
       |> put_flash(:error, "You must be logged in to access this page.")
       |> redirect(to: user_path(conn, :signup))
       |> halt()
+    end
+  end
+
+
+  defp forbid_authenticated_users(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+      |> redirect(to: "/")
+      |> halt()
+    else
+      conn
     end
   end
 end
