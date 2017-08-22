@@ -17,7 +17,7 @@ defmodule Leather.User do
   def changeset(%User{} = user, attrs \\ :invalid) do
     user
     |> cast(attrs, [:email])
-    |> validate_length(:email, min: 1, max: 20)
+    |> validate_length(:email, min: 5, max: 100)
   end
 
 
