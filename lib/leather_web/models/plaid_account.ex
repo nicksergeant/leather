@@ -1,5 +1,5 @@
 defmodule Leather.Plaid.Account do
-  @moduledoc "The Account model for Leather. https://plaid.com/docs/api/#accounts"
+  @moduledoc "The Plaid.Account model for Leather. https://plaid.com/docs/api/#accounts"
 
   import Ecto.Changeset
   use Ecto.Schema

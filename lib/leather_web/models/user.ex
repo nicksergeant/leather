@@ -11,6 +11,7 @@ defmodule Leather.User do
     field :email, :string
     timestamps()
     has_many :accounts, Leather.Account
+    has_many :plaid_accounts, Leather.Plaid.Account
   end
 
   @doc false

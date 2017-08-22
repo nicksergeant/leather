@@ -10,6 +10,7 @@ defmodule Leather.Account do
     timestamps()
     belongs_to :user, Leather.User
     has_many :transactions, Leather.Transaction
+    has_one :plaid_account, Leather.Plaid.Account
   end
 
   @doc false
