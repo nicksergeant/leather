@@ -14,7 +14,7 @@
         <div class="field">
           <label class="label">Username</label>
           <div class="control has-icons-left has-icons-right">
-            <%= text_input f, :username, placeholder: "Username", class: input_class(f, :username) %>
+            <%= text_input f, :username, class: input_class(f, :username) %>
             <%= error_tag f, :username %>
             <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
             <%= if Enum.count(error_tag(f, :username)) > 0 do %>
@@ -25,10 +25,21 @@
         <div class="field">
           <label class="label">Password</label>
           <div class="control has-icons-left has-icons-right">
-            <%= password_input f, :password, placeholder: "Password", class: input_class(f, :password) %>
+            <%= password_input f, :password, class: input_class(f, :password) %>
             <%= error_tag f, :password %>
             <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
             <%= if Enum.count(error_tag(f, :password)) > 0 do %>
+              <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Confirm Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <%= password_input f, :password_confirmation, class: input_class(f, :password_confirmation) %>
+            <%= error_tag f, :password_confirmation %>
+            <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
+            <%= if Enum.count(error_tag(f, :password_confirmation)) > 0 do %>
               <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
             <% end %>
           </div>

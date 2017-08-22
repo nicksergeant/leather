@@ -27,6 +27,8 @@ defmodule Leather.User do
     |> changeset(attrs)
     |> cast(attrs, [:password])
     |> validate_length(:password, min: 6, max: 100)
+    |> validate_confirmation(:password)
+    |> unique_constraint(:username)
     |> put_pass_hash()
   end
 
