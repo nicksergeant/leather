@@ -1,3 +1,4 @@
+import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -25,11 +26,24 @@ const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
 
 if (rootElem) {
-  ReactDOM.render(
-    <Provider store={store}>
+  let router;
+  if (window.currentUser) {
+    router = (
+      <Router history={history}>
+        <Route path="/" component={Dashboard} />
+      </Router>
+    );
+  } else {
+    router = (
       <Router history={history}>
         <Route path="/" component={Home} />
       </Router>
+    );
+  }
+
+  ReactDOM.render(
+    <Provider store={store}>
+      {router}
     </Provider>,
     rootElem
   );

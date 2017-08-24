@@ -8,17 +8,14 @@
     <meta name="author" content="">
     <title>Leather</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <%= if @current_user do %>
+      <script type="text/javascript">
+        window.currentUser = '<%= @current_user.email %>';
+        window.csrfToken = '<%= Plug.CSRFProtection.get_csrf_token() %>';
+      </script>
+    <% end %>
   </head>
   <body>
-    <%= if @current_user do %>
-      <div style="margin: 10px;" class="notification">
-        You are logged in as <%= @current_user.email %>.
-        <%= form_for @conn, user_path(@conn, :logout), [as: :session], fn f -> %>
-          <input type="hidden" name="_method" value="delete">
-          <button class="button" style="margin-top: 10px;" type="submit">Log out</button>
-        <% end %>
-      </div>
-    <% end %>
     <%= if get_flash(@conn, :info) do %>
       <p style="margin: 10px;" class="notification is-success" role="alert"><%= get_flash(@conn, :info) %></p>
     <% end %>

@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router';
 
-class Login extends Component {
+class Home extends Component {
   render() {
     return (
       <div>
@@ -30,4 +30,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Home;
