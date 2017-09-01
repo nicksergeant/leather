@@ -1,7 +1,5 @@
-import Footer from './Footer.js';
-import React from 'react';
-import { Component } from 'react';
-import { Link } from 'react-router';
+import Footer from './Footer';
+import React, { Component } from 'react';
 
 class Home extends Component {
   render() {
@@ -16,10 +14,14 @@ class Home extends Component {
               <div className="message-body" style={{ textAlign: 'center' }}>
                 <p>Let's do this. 🎉</p>
                 <br />
-                <a className="button" href="/login">Login</a>
+                <a className="button" href="/login">
+                  Login
+                </a>
                 <br />
                 <br />
-                <a className="button" href="/signup">Signup</a>
+                <a className="button" href="/signup">
+                  Signup
+                </a>
               </div>
             </article>
           </div>

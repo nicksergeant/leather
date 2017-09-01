@@ -1,28 +1,19 @@
+import AccountDetail from './components/AccountDetail';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import rootReducer from './reducers/index';
 import socket from './data/socket';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
-import { createStore, combineReducers } from 'redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-
-const reducers = [
-  () => {
-    return {};
-  },
-];
+import { createStore } from 'redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 const store = createStore(
-  combineReducers({
-    ...reducers,
-    routing: routerReducer,
-  }),
+  rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-
-window.socket = socket;
 
 const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
@@ -33,6 +24,7 @@ if (rootElem) {
       const router = (
         <Router history={history}>
           <Route path="/" component={Dashboard} />
+          <Route path="/accounts/:id" component={AccountDetail} />
         </Router>
       );
       ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
