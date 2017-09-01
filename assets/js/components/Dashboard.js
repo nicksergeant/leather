@@ -1,10 +1,27 @@
-import Footer from './Footer.js';
 import LogoutButton from './LogoutButton.js';
 import React from 'react';
-import { Component } from 'react';
-import { Link } from 'react-router';
 
-class Dashboard extends Component {
+class Dashboard extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      channel: window.socket.channel('dashboard', {}),
+    };
+  }
+
+  componentWillMount() {
+    this.state.channel.join();
+  }
+
+  componentWillUnmount() {
+    this.state.channel.leave();
+  }
+
+  createAccount() {
+    console.log('create');
+  }
+
   render() {
     return (
       <div>
@@ -13,10 +30,13 @@ class Dashboard extends Component {
             You are logged in as {window.currentUser}.
             <LogoutButton />
           </div>
+          <a onClick={this.createAccount.bind(this)}>Create account</a>
         </div>
       </div>
     );
   }
 }
+
+Dashboard.PropTypes = {};
 
 export default Dashboard;
