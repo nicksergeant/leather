@@ -3,7 +3,6 @@ defmodule LeatherWeb.AccountChannel do
 
   def join("accounts:" <> account_id, _params, socket) do
     :timer.send_interval 2000, :ping
-    ThisWillError.reall()
     {:ok, socket}
   end
 
