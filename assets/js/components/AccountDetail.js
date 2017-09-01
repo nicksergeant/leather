@@ -36,6 +36,8 @@ class AccountDetail extends Component {
 
   componentWillMount() {
     this.state.channel.join();
+
+    throwTestError();
   }
 
   componentWillReceiveProps(props) {
