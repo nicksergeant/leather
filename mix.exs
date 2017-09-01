@@ -15,7 +15,7 @@ defmodule Leather.Mixfile do
 
   def application do
     [mod: {Leather.Application, []},
-     extra_applications: [:logger, :runtime_tools]]
+     extra_applications: [:sentry, :logger, :runtime_tools]]
   end
 
 
@@ -41,7 +41,8 @@ defmodule Leather.Mixfile do
      {:phoenix_live_reload, "~> 1.0", [only: :dev]},
      {:phoenix_pubsub, "~> 1.0"},
      {:plaidex, "~> 0.1.0"},
-     {:postgrex, ">= 0.0.0"}]
+     {:postgrex, ">= 0.0.0"},
+     {:sentry, "~> 6.0.0"}]
   end
 
 
