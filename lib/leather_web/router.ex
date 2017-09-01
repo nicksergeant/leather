@@ -1,7 +1,10 @@
 defmodule LeatherWeb.Router do
   use LeatherWeb, :router
-  use Plug.ErrorHandler
-  use Sentry.Plug
+
+  if Mix.env == :prod do
+    use Plug.ErrorHandler
+    use Sentry.Plug
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]

@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <%= if @current_user do %>
       <script type="text/javascript">
-        window.currentUser = '<%= @current_user.email %>';
         window.csrfToken = '<%= Plug.CSRFProtection.get_csrf_token() %>';
+        window.currentUser = '<%= @current_user.email %>';
+        window.env = '<%= Mix.env %>';
       </script>
     <% end %>
   </head>

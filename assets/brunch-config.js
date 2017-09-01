@@ -63,6 +63,7 @@ exports.config = {
       'history',
       'phoenix',
       'phoenix_html',
+      'raven-js',
       'react',
       'react-dom',
       'react-redux',
