@@ -20,6 +20,7 @@ class AccountDetail extends Component {
   static get propTypes() {
     return {
       account: PropTypes.object,
+      setActiveAccount: PropTypes.func,
     };
   }
 
@@ -42,6 +43,7 @@ class AccountDetail extends Component {
   }
 
   componentWillUnmount() {
+    this.props.setActiveAccount(null);
     this.state.channel.leave();
   }
 
