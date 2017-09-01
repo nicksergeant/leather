@@ -27,23 +27,23 @@ window.socket = socket;
 const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
 
-socket.onOpen(() => {
-  if (rootElem) {
-    let router;
-    if (window.currentUser) {
-      router = (
+if (rootElem) {
+  if (window.currentUser) {
+    socket.onOpen(() => {
+      const router = (
         <Router history={history}>
           <Route path="/" component={Dashboard} />
         </Router>
       );
-    } else {
-      router = (
-        <Router history={history}>
-          <Route path="/" component={Home} />
-        </Router>
-      );
-    }
-
+      ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
+    });
+    socket.connect();
+  } else {
+    const router = (
+      <Router history={history}>
+        <Route path="/" component={Home} />
+      </Router>
+    );
     ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
   }
-});
+}
