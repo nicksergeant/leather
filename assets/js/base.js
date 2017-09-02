@@ -6,9 +6,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import rootReducer from './reducers/index';
 import socket from './data/socket';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 if (window.env === 'prod') {
@@ -17,16 +18,20 @@ if (window.env === 'prod') {
   ).install();
 }
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const createStoreWithMiddleware = composeEnhancers(applyMiddleware(thunk))(
+  createStore
 );
+
+const store = createStoreWithMiddleware(rootReducer);
 
 const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
 
 if (rootElem) {
   if (window.currentUser) {
+    socket.connect();
     socket.onOpen(() => {
       const router = (
         <Router history={history}>
@@ -36,7 +41,6 @@ if (rootElem) {
       );
       ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
     });
-    socket.connect();
   } else {
     const router = (
       <Router history={history}>

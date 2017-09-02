@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: 'js/base.js'
+      joinTo: 'js/base.js',
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -20,18 +20,18 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: 'css/app.css'
+      joinTo: 'css/app.css',
     },
     templates: {
-      joinTo: 'js/base.js'
-    }
+      joinTo: 'js/base.js',
+    },
   },
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
   },
 
   // Phoenix paths configuration
@@ -39,7 +39,7 @@ exports.config = {
     // Dependencies and current project directories to watch
     watched: ['static', 'css', 'js', 'vendor'],
     // Where to compile files to
-    public: '../priv/static'
+    public: '../priv/static',
   },
 
   // Configure your plugins
@@ -47,14 +47,14 @@ exports.config = {
     babel: {
       ignore: [/vendor/],
       presets: ['react', 'env'],
-      plugins: ['transform-object-rest-spread']
-    }
+      plugins: ['transform-object-rest-spread'],
+    },
   },
 
   modules: {
     autoRequire: {
-      'js/base.js': ['js/base']
-    }
+      'js/base.js': ['js/base'],
+    },
   },
 
   npm: {
@@ -69,7 +69,8 @@ exports.config = {
       'react-redux',
       'react-router',
       'react-router-redux',
-      'redux'
-    ]
-  }
+      'redux',
+      'redux-thunk',
+    ],
+  },
 };

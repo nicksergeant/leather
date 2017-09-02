@@ -1,10 +1,10 @@
 import actionTypes from '../actions/actionTypes';
 
-export const addAccount = payload => {
-  return {
+export const addAccount = payload => dispatch => {
+  dispatch({
     payload,
     type: actionTypes.ADD_ACCOUNT,
-  };
+  });
 };
 
 export const setActiveAccount = payload => {
