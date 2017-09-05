@@ -30,7 +30,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
 
 if (rootElem) {
-  if (window.currentUser) {
+  if (window.LEATHER && window.LEATHER.user) {
     socket.connect();
     socket.onOpen(() => {
       const router = (

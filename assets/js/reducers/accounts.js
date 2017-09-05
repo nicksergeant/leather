@@ -15,7 +15,7 @@ export const getActiveAccount = createSelector(
 
 export const accounts = (state = Immutable.List(), { type, payload }) => {
   switch (type) {
-    case actionTypes.ADD_ACCOUNT:
+    case actionTypes.ADD_ACCOUNT_SUCCESS:
       return state.push(payload);
     default:
       return state;
