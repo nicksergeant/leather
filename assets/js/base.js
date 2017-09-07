@@ -1,4 +1,5 @@
 import AccountDetail from './components/AccountDetail';
+import Channels from './components/Channels';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import Raven from 'raven-js';
@@ -34,10 +35,12 @@ if (rootElem) {
     socket.connect();
     socket.onOpen(() => {
       const router = (
-        <Router history={history}>
-          <Route path="/" component={Dashboard} />
-          <Route path="/accounts/:id" component={AccountDetail} />
-        </Router>
+        <Channels>
+          <Router history={history}>
+            <Route path="/" component={Dashboard} />
+            <Route path="/accounts/:id" component={AccountDetail} />
+          </Router>
+        </Channels>
       );
       ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
     });

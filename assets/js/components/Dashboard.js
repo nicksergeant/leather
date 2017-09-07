@@ -2,20 +2,20 @@ import Immutable from 'immutable';
 import LogoutButton from './LogoutButton';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import socket from '../data/socket';
 import { Link } from 'react-router';
-import { addAccount, setAccounts } from '../actions/accounts';
+import { addAccount } from '../actions/accounts';
 import { connect } from 'react-redux';
+import { getChannelByName } from '../reducers/channels';
 import { selectAllAccounts } from '../reducers/accounts';
 
 const mapDispatchToProps = {
   addAccount,
-  setAccounts,
 };
 
 const mapStateToProps = state => {
   return {
     accounts: selectAllAccounts(state),
+    channel: getChannelByName(state, 'dashboard'),
   };
 };
 
@@ -24,32 +24,17 @@ class Dashboard extends Component {
     return {
       accounts: PropTypes.instanceOf(Immutable.List),
       addAccount: PropTypes.func,
-      setAccounts: PropTypes.func,
+      channel: PropTypes.object,
     };
   }
 
-  constructor() {
-    super();
-
-    this.state = {
-      channel: socket.channel('dashboard', {}),
-    };
-
+  constructor(props) {
+    super(props);
     this.createAccount = this.createAccount.bind(this);
   }
 
-  componentWillMount() {
-    this.state.channel.join().receive('ok', ({ accounts }) => {
-      this.props.setAccounts(accounts);
-    });
-  }
-
-  componentWillUnmount() {
-    this.state.channel.leave();
-  }
-
   createAccount() {
-    this.props.addAccount(this.state.channel, {
+    this.props.addAccount(this.props.channel, {
       name: 'Test Account',
     });
   }

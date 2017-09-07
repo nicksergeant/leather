@@ -1,18 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import socket from '../data/socket';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getActiveAccount } from '../reducers/accounts';
+import { getChannelByName } from '../reducers/channels';
+import { initChannel } from '../actions/channels';
 import { setActiveAccount } from '../actions/accounts';
 
 const mapDispatchToProps = {
+  initChannel,
   setActiveAccount,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  const accountId = props.params.id ? parseInt(props.params.id, 10) : null;
+
   return {
     account: getActiveAccount(state),
+    accountId,
+    channel: getChannelByName(state, `accounts:${accountId}`),
   };
 };
 
@@ -20,37 +26,43 @@ class AccountDetail extends Component {
   static get propTypes() {
     return {
       account: PropTypes.object,
+      initChannel: PropTypes.func,
       setActiveAccount: PropTypes.func,
     };
   }
 
   constructor(props) {
-    super();
-
+    super(props);
+    this.maybeInitChannel(props);
     this.maybeSetActiveAccount(props);
-
-    this.state = {
-      channel: socket.channel('accounts:123', {}),
-    };
-  }
-
-  componentWillMount() {
-    this.state.channel.join();
   }
 
   componentWillReceiveProps(props) {
+    this.maybeInitChannel(props);
     this.maybeSetActiveAccount(props);
   }
 
   componentWillUnmount() {
     this.props.setActiveAccount(null);
-    this.state.channel.leave();
+  }
+
+  maybeInitChannel(props) {
+    const channel = props.channel;
+
+    if (!channel) {
+      this.props.initChannel(`accounts:${props.accountId}`);
+    }
+
+    if (channel && channel.state === 'closed') {
+      channel.join().receive('ok', () => {
+        // subscribe to transactions
+      });
+    }
   }
 
   maybeSetActiveAccount(props) {
-    const accountIdInParams = parseInt(props.params.id, 10);
-    if (!props.account || props.account.id !== accountIdInParams) {
-      props.setActiveAccount(accountIdInParams, 10);
+    if (!props.account || props.account.id !== props.accountId) {
+      props.setActiveAccount(props.accountId);
     }
   }
 

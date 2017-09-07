@@ -9,7 +9,7 @@ export const getActiveAccount = createSelector(
   selectActiveAccount,
   selectAllAccounts,
   (accountId, accounts) => {
-    return accounts.find(account => account.id === accountId);
+    return accounts.find(account => account.get('id') === accountId);
   }
 );
 
@@ -19,9 +19,9 @@ export const accounts = (
 ) => {
   switch (type) {
     case actionTypes.ADD_ACCOUNT_SUCCESS:
-      return state.push(response);
+      return state.push(Immutable.fromJS(response));
     case actionTypes.SET_ACCOUNTS:
-      return Immutable.fromJS(payload)
+      return Immutable.fromJS(payload);
     default:
       return state;
   }
