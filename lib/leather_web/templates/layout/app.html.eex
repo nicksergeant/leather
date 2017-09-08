@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="apple-touch-icon" href="<%= static_path(@conn, "/images/apple-touch-icon.png") %>?f=1" />
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" />
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Leather</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <%= if @current_user do %>
       <script type="text/javascript">
         window.LEATHER = {
