@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import LogoutButton from './LogoutButton';
+import Nav from './Nav';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
@@ -50,6 +51,7 @@ class Dashboard extends Component {
     });
     return (
       <div>
+        <Nav />
         <div className="container is-fullhd">
           <div style={{ margin: '10px' }} className="notification">
             You are logged in as {window.LEATHER.user.email}.

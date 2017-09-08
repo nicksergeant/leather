@@ -1,5 +1,5 @@
 import AccountDetail from './components/AccountDetail';
-import Channels from './components/Channels';
+import App from './components/App';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import Raven from 'raven-js';
@@ -26,7 +26,6 @@ const createStoreWithMiddleware = composeEnhancers(applyMiddleware(thunk))(
 );
 
 const store = createStoreWithMiddleware(rootReducer);
-
 const history = syncHistoryWithStore(browserHistory, store);
 const rootElem = document.getElementById('root');
 
@@ -35,12 +34,12 @@ if (rootElem) {
     socket.connect();
     socket.onOpen(() => {
       const router = (
-        <Channels>
+        <App>
           <Router history={history}>
             <Route path="/" component={Dashboard} />
             <Route path="/accounts/:id" component={AccountDetail} />
           </Router>
-        </Channels>
+        </App>
       );
       ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
     });

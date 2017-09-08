@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addAccount, setAccounts } from '../actions/accounts';
 import { getChannelByName } from '../reducers/channels';
 import { initChannel } from '../actions/channels';
+import { setAccounts } from '../actions/accounts';
 
 const mapDispatchToProps = {
   initChannel,
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 class Channels extends Component {
   static get propTypes() {
     return {
-      channel: PropTypes.object,
+      children: PropTypes.object,
       initChannel: PropTypes.func,
       setAccounts: PropTypes.func,
     };
@@ -49,7 +49,11 @@ class Channels extends Component {
   }
 
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
   }
 }
 

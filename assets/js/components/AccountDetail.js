@@ -1,3 +1,4 @@
+import Nav from './Nav';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
@@ -72,6 +73,7 @@ class AccountDetail extends Component {
     }
     return (
       <div>
+        <Nav />
         Account detail<br />
         <Link to="/">Dashboard</Link>
       </div>
