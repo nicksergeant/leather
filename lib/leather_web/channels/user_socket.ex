@@ -17,7 +17,8 @@ defmodule LeatherWeb.UserSocket do
                               token,
                               max_age: @max_age) do
       {:ok, user_id} ->
-        {:ok, assign(socket, :user_id, user_id)}
+        user = Leather.Repo.get(Leather.User, user_id)
+        {:ok, assign(socket, :user, user)}
 
       {:error, _reason} ->
         :error
@@ -30,6 +31,6 @@ defmodule LeatherWeb.UserSocket do
 
 
   def id(socket) do
-    "users_socket:#{socket.assigns.user_id}"
+    "users_socket:#{socket.assigns.user.id}"
   end
 end

@@ -5,10 +5,7 @@ defmodule LeatherWeb.DashboardChannel do
   use LeatherWeb, :channel
 
   def join("dashboard", _params, socket) do
-    # TODO: Store user in socket so we don't 
-    # have to get again in handle_in ?
-    user = Repo.get(User, socket.assigns.user_id)
-    accounts = Ecto.assoc(user, :accounts)
+    accounts = Ecto.assoc(socket.assigns.user, :accounts)
       |> Repo.all
     resp = %{
       accounts: Phoenix.View.render_many(accounts,
@@ -20,8 +17,7 @@ defmodule LeatherWeb.DashboardChannel do
 
 
   def handle_in(event, params, socket) do
-    user = Repo.get(User, socket.assigns.user_id)
-    handle_in event, params, user, socket
+    handle_in event, params, socket.assigns.user, socket
   end
 
   def handle_in("new_account", params, user, socket) do
