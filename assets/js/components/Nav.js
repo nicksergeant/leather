@@ -7,11 +7,6 @@ class Nav extends Component {
       <nav className="navbar">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <img
-              height="28"
-              src="..."
-              width="112"
-            />
             LEATHER
           </Link>
           <div className="navbar-burger burger" data-target="navMenubd-example">
