@@ -12,7 +12,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    channel: getChannelByName(state, 'dashboard'),
+    channel: getChannelByName(state, 'accounts'),
   };
 };
 
@@ -38,7 +38,7 @@ class Channels extends Component {
     const channel = props.channel;
 
     if (!channel) {
-      this.props.initChannel('dashboard');
+      this.props.initChannel('accounts');
     }
 
     if (channel && channel.state === 'closed') {

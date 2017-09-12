@@ -2,8 +2,8 @@ defmodule LeatherWeb.UserSocket do
   use Phoenix.Socket
 
   # Channels
+  channel "accounts", LeatherWeb.AccountsChannel
   channel "accounts:*", LeatherWeb.AccountChannel
-  channel "dashboard", LeatherWeb.DashboardChannel
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll

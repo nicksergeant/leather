@@ -1,10 +1,10 @@
-defmodule LeatherWeb.DashboardChannel do
+defmodule LeatherWeb.AccountsChannel do
   alias Leather.Account
   alias Leather.Repo
   alias Leather.User
   use LeatherWeb, :channel
 
-  def join("dashboard", _params, socket) do
+  def join("accounts", _params, socket) do
     accounts = Ecto.assoc(socket.assigns.user, :accounts)
     accounts = accounts
       |> Repo.all

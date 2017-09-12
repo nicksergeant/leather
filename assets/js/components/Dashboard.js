@@ -16,7 +16,7 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
   return {
     accounts: selectAllAccounts(state),
-    channel: getChannelByName(state, 'dashboard'),
+    channel: getChannelByName(state, 'accounts'),
   };
 };
 
