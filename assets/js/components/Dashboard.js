@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -53,10 +52,6 @@ class Dashboard extends Component {
       <div>
         <Nav />
         <div className="container is-fullhd">
-          <div style={{ margin: '10px' }} className="notification">
-            You are logged in as {window.LEATHER.user.email}.
-            <LogoutButton />
-          </div>
           <a onClick={this.createAccount}>Create account</a>
         </div>
         Dashboard<br />

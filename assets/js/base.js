@@ -1,10 +1,13 @@
 import AccountDetail from './components/AccountDetail';
 import App from './components/App';
+import Budgets from './components/Budgets';
 import Dashboard from './components/Dashboard';
+import Forecast from './components/Forecast';
 import Home from './components/Home';
 import Raven from 'raven-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Stashes from './components/Stashes';
 import rootReducer from './reducers/index';
 import socket from './data/socket';
 import thunk from 'redux-thunk';
@@ -38,6 +41,9 @@ if (rootElem) {
           <Router history={history}>
             <Route path="/" component={Dashboard} />
             <Route path="/accounts/:id" component={AccountDetail} />
+            <Route path="/budgets" component={Budgets} />
+            <Route path="/forecast" component={Forecast} />
+            <Route path="/stashes" component={Stashes} />
           </Router>
         </App>
       );
