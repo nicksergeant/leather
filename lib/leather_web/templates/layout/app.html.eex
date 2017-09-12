@@ -31,5 +31,6 @@
     <% end %>
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/js/base.js") %>"></script>
+    <script src="https://use.fontawesome.com/440b86ad14.js"></script>
   </body>
 </html>
