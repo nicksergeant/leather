@@ -36,6 +36,10 @@ class AccountDetail extends Component {
     super(props);
     this.maybeInitChannel(props);
     this.maybeSetActiveAccount(props);
+
+    this.state = {
+      accountNotFound: false,
+    };
   }
 
   componentWillReceiveProps(props) {
@@ -55,9 +59,18 @@ class AccountDetail extends Component {
     }
 
     if (channel && channel.state === 'closed') {
-      channel.join().receive('ok', () => {
-        // subscribe to transactions
-      });
+      channel
+        .join()
+        .receive('ok', () => {
+          // handle incoming transactions
+        })
+        .receive('error', error => {
+          if (error.status === 404) {
+            this.setState({
+              accountNotFound: true,
+            });
+          }
+        });
     }
   }
 
@@ -68,6 +81,9 @@ class AccountDetail extends Component {
   }
 
   render() {
+    if (this.state.accountNotFound) {
+      return <div>Account not found</div>;
+    }
     if (!this.props.account) {
       return <div />;
     }

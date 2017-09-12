@@ -6,6 +6,7 @@ defmodule LeatherWeb.DashboardChannel do
 
   def join("dashboard", _params, socket) do
     accounts = Ecto.assoc(socket.assigns.user, :accounts)
+    accounts
       |> Repo.all
     resp = %{
       accounts: Phoenix.View.render_many(accounts,
