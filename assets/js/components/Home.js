@@ -5,7 +5,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div className="container is-fullhd">
+        <div className="container is-fluid">
           <div
             className="columns is-mobile is-centered"
             style={{ margin: '50px 0 60px 0' }}

@@ -1,4 +1,4 @@
-<div class="container is-fullhd">
+<div class="container is-fluid">
   <div
     class="columns is-mobile is-centered"
     style="margin: 50px 0 60px 0"

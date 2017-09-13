@@ -86,7 +86,7 @@ class Forecast extends Component {
     return (
       <div>
         <Nav />
-        <div className="container is-fullhd">
+        <div className="container is-fluid">
           <div className="columns is-gapless">
             <div className="column is-one-quarter">
               <Sidebar />
