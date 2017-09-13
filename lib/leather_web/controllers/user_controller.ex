@@ -21,7 +21,6 @@ defmodule LeatherWeb.UserController do
     case Leather.Auth.login_by_email_and_pass(conn, email, pass, repo: Repo) do
       {:ok, conn} ->
         conn
-        |> put_flash(:info, "Welcome back!")
         |> redirect(to: "/")
 
       {:error, _reason, conn} ->

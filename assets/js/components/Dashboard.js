@@ -1,12 +1,10 @@
-import Immutable from 'immutable';
 import Nav from './Nav';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import Sidebar from './Sidebar';
 import { addAccount } from '../actions/accounts';
 import { connect } from 'react-redux';
 import { getChannelByName } from '../reducers/channels';
-import { selectAllAccounts } from '../reducers/accounts';
 
 const mapDispatchToProps = {
   addAccount,
@@ -14,7 +12,6 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    accounts: selectAllAccounts(state),
     channel: getChannelByName(state, 'accounts'),
   };
 };
@@ -22,7 +19,6 @@ const mapStateToProps = state => {
 class Dashboard extends Component {
   static get propTypes() {
     return {
-      accounts: PropTypes.instanceOf(Immutable.List),
       addAccount: PropTypes.func,
       channel: PropTypes.object,
     };
@@ -40,22 +36,18 @@ class Dashboard extends Component {
   }
 
   render() {
-    const accounts = this.props.accounts.map(account => {
-      return (
-        <Link key={account.get('id')} to={`/accounts/${account.get('id')}`}>
-          {account.get('name')}
-          <br />
-        </Link>
-      );
-    });
     return (
       <div>
         <Nav />
         <div className="container is-fullhd">
+          <div className="columns is-gapless">
+            <div className="column is-one-quarter">
+              <Sidebar />
+            </div>
+            <div className="column"></div>
+          </div>
           <a onClick={this.createAccount}>Create account</a>
         </div>
-        Dashboard<br />
-        {accounts}
       </div>
     );
   }

@@ -1,7 +1,8 @@
+import Immutable from 'immutable';
 import Nav from './Nav';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import Sidebar from './Sidebar';
 import { connect } from 'react-redux';
 import { getActiveAccount } from '../reducers/accounts';
 import { getChannelByName } from '../reducers/channels';
@@ -19,14 +20,14 @@ const mapStateToProps = (state, props) => {
   return {
     account: getActiveAccount(state),
     accountId,
-    channel: getChannelByName(state, `accounts:${accountId}`),
+    channel: getChannelByName(state, `transactions:${accountId}`),
   };
 };
 
-class AccountDetail extends Component {
+class Transactions extends Component {
   static get propTypes() {
     return {
-      account: PropTypes.object,
+      account: PropTypes.instanceOf(Immutable.Map),
       initChannel: PropTypes.func,
       setActiveAccount: PropTypes.func,
     };
@@ -47,15 +48,11 @@ class AccountDetail extends Component {
     this.maybeSetActiveAccount(props);
   }
 
-  componentWillUnmount() {
-    this.props.setActiveAccount(null);
-  }
-
   maybeInitChannel(props) {
     const channel = props.channel;
 
     if (!channel) {
-      this.props.initChannel(`accounts:${props.accountId}`);
+      this.props.initChannel(`transactions:${props.accountId}`);
     }
 
     if (channel && channel.state === 'closed') {
@@ -90,11 +87,17 @@ class AccountDetail extends Component {
     return (
       <div>
         <Nav />
-        Account detail<br />
-        <Link to="/">Dashboard</Link>
+        <div className="container is-fullhd">
+          <div className="columns is-gapless">
+            <div className="column is-one-quarter">
+              <Sidebar />
+            </div>
+            <div className="column">Transactions</div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(Transactions);

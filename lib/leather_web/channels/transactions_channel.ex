@@ -1,9 +1,9 @@
-defmodule LeatherWeb.AccountChannel do
+defmodule LeatherWeb.TransactionsChannel do
   alias Leather.Account
   alias Leather.Repo
   use LeatherWeb, :channel
 
-  def join("accounts:" <> account_id, _params, socket) do
+  def join("transactions:" <> account_id, _params, socket) do
     account =
       Repo.get_by(Account, %{id: account_id, user_id: socket.assigns.user.id})
     if account do

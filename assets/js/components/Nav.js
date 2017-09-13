@@ -1,13 +1,34 @@
+import Immutable from 'immutable';
 import LogoutLink from './LogoutLink';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { getActiveAccount } from '../reducers/accounts';
+
+const mapDispatchToProps = {};
+
+const mapStateToProps = state => {
+  return {
+    account: getActiveAccount(state),
+  };
+};
 
 class Nav extends Component {
+  static get propTypes() {
+    return {
+      account: PropTypes.instanceOf(Immutable.Map),
+    };
+  }
+
   render() {
+    const accountSlug = this.props.account
+      ? `/${this.props.account.get('id')}`
+      : '';
     return (
       <nav className="navbar" style={{ background: '#F7F5EF' }}>
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
+          <Link className="navbar-item logo" to="/">
             <img
               height="28"
               src="/images/logo-header-mark.png"
@@ -22,54 +43,50 @@ class Nav extends Component {
             <span />
           </div>
         </div>
-        <div id="navMenubd-example" className="navbar-menu">
+        <div className="navbar-menu">
           <div className="navbar-start">
-            <Link className="navbar-item" to="/">
+            <Link className="navbar-item" to={`${accountSlug}/transactions`}>
               <span
                 className="icon"
                 style={{
                   color: '#394248',
                   marginRight: '.5em',
-                  marginTop: '2px',
                 }}
               >
                 <i className="fa fa-bars" />
               </span>
               Transactions
             </Link>
-            <Link className="navbar-item" to="/forecast">
+            <Link className="navbar-item" to={`${accountSlug}/forecast`}>
               <span
                 className="icon"
                 style={{
                   color: '#394248',
                   marginRight: '.5em',
-                  marginTop: '2px',
                 }}
               >
                 <i className="fa fa-line-chart" />
               </span>
               Forecast
             </Link>
-            <Link className="navbar-item" to="stashes">
+            <Link className="navbar-item" to={`${accountSlug}/stashes`}>
               <span
                 className="icon"
                 style={{
                   color: '#394248',
                   marginRight: '.5em',
-                  marginTop: '2px',
                 }}
               >
                 <i className="fa fa-database" />
               </span>
               Stashes
             </Link>
-            <Link className="navbar-item" to="/budgets">
+            <Link className="navbar-item" to={`${accountSlug}/budgets`}>
               <span
                 className="icon"
                 style={{
                   color: '#394248',
                   marginRight: '.5em',
-                  marginTop: '2px',
                 }}
               >
                 <i className="fa fa-bar-chart" />
@@ -91,4 +108,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

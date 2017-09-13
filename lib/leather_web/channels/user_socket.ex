@@ -3,7 +3,7 @@ defmodule LeatherWeb.UserSocket do
 
   # Channels
   channel "accounts", LeatherWeb.AccountsChannel
-  channel "accounts:*", LeatherWeb.AccountChannel
+  channel "transactions:*", LeatherWeb.TransactionsChannel
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
