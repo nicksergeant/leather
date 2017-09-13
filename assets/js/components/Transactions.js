@@ -29,7 +29,6 @@ class Transactions extends Component {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
       initChannel: PropTypes.func,
-      setActiveAccount: PropTypes.func,
     };
   }
 

@@ -3,6 +3,9 @@ defmodule LeatherWeb.UserSocket do
 
   # Channels
   channel "accounts", LeatherWeb.AccountsChannel
+  channel "budgets:*", LeatherWeb.BudgetsChannel
+  channel "forecast:*", LeatherWeb.ForecastChannel
+  channel "stashes:*", LeatherWeb.StashesChannel
   channel "transactions:*", LeatherWeb.TransactionsChannel
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket
