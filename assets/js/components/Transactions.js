@@ -91,7 +91,10 @@ class Transactions extends Component {
             <div className="column is-one-quarter">
               <Sidebar />
             </div>
-            <div className="column">Transactions</div>
+            <div className="column content">
+              Transactions for account{' '}
+              <strong>#{this.props.account.get('id')}</strong>
+            </div>
           </div>
         </div>
       </div>

@@ -91,7 +91,10 @@ class Forecast extends Component {
             <div className="column is-one-quarter">
               <Sidebar />
             </div>
-            <div className="column">Forecast</div>
+            <div className="column content">
+              Forecast for account{' '}
+              <strong>#{this.props.account.get('id')}</strong>
+            </div>
           </div>
         </div>
       </div>

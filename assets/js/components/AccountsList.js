@@ -25,7 +25,7 @@ class AccountsList extends Component {
       return (
         <li key={account.get('id')}>
           <Link to={`/${account.get('id')}/transactions`}>
-            {account.get('name')}
+            {account.get('name')} (#{account.get('id')})
             <br />
           </Link>
         </li>

@@ -91,7 +91,10 @@ class Budgets extends Component {
             <div className="column is-one-quarter">
               <Sidebar />
             </div>
-            <div className="column">Budgets</div>
+            <div className="column content">
+              Budgets for account{' '}
+              <strong>#{this.props.account.get('id')}</strong>
+            </div>
           </div>
         </div>
       </div>

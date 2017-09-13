@@ -1,21 +1,49 @@
 import AccountsList from './AccountsList';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { addAccount } from '../actions/accounts';
 import { connect } from 'react-redux';
+import { getChannelByName } from '../reducers/channels';
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  addAccount,
+};
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    channel: getChannelByName(state, 'accounts'),
+  };
 };
 
 class Sidebar extends Component {
   static get propTypes() {
-    return {};
+    return {
+      addAccount: PropTypes.func,
+      channel: PropTypes.object,
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.createAccount = this.createAccount.bind(this);
+  }
+
+  createAccount() {
+    this.props.addAccount(this.props.channel, {
+      name: 'Test Account',
+    });
   }
 
   render() {
     return (
       <aside className="menu sidebar">
+        <button
+          className="button"
+          style={{ marginBottom: '1rem' }}
+          onClick={this.createAccount}
+        >
+          Create new account
+        </button>
         <AccountsList />
       </aside>
     );
