@@ -13,6 +13,10 @@ export const getActiveAccount = createSelector(
   }
 );
 
+export const selectDefaultAccount = state => {
+  return getActiveAccount(state) || selectAllAccounts(state).get(0);
+};
+
 export const accounts = (
   state = Immutable.List(),
   { type, payload, response }

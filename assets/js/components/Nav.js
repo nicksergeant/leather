@@ -4,26 +4,26 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { getActiveAccount } from '../reducers/accounts';
+import { selectDefaultAccount } from '../reducers/accounts';
 
 const mapDispatchToProps = {};
 
 const mapStateToProps = state => {
   return {
-    account: getActiveAccount(state),
+    defaultAccount: selectDefaultAccount(state),
   };
 };
 
 class Nav extends Component {
   static get propTypes() {
     return {
-      account: PropTypes.instanceOf(Immutable.Map),
+      defaultAccount: PropTypes.instanceOf(Immutable.Map),
     };
   }
 
   render() {
-    const accountSlug = this.props.account
-      ? `/${this.props.account.get('id')}`
+    const accountSlug = this.props.defaultAccount
+      ? `/${this.props.defaultAccount.get('id')}`
       : '';
     return (
       <nav className="navbar" style={{ background: '#F7F5EF' }}>

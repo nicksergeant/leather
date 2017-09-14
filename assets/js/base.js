@@ -37,15 +37,15 @@ if (rootElem) {
     socket.connect();
     socket.onOpen(() => {
       const router = (
-        <App>
-          <Router history={history}>
+        <Router history={history}>
+          <Route component={App}>
             <Route path="/" component={Dashboard} />
-            <Route path="/:id/budgets" component={Budgets} />
-            <Route path="/:id/forecast" component={Forecast} />
-            <Route path="/:id/stashes" component={Stashes} />
-            <Route path="/:id/transactions" component={Transactions} />
-          </Router>
-        </App>
+            <Route path="/:accountId/budgets" component={Budgets} />
+            <Route path="/:accountId/forecast" component={Forecast} />
+            <Route path="/:accountId/stashes" component={Stashes} />
+            <Route path="/:accountId/transactions" component={Transactions} />
+          </Route>
+        </Router>
       );
       ReactDOM.render(<Provider store={store}>{router}</Provider>, rootElem);
     });
