@@ -1,35 +1,35 @@
 import Footer from './Footer';
-import React, { Component } from 'react';
+import React from 'react';
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <div className="container is-fluid">
-          <div
-            className="columns is-mobile is-centered"
-            style={{ margin: '50px 0 60px 0' }}
-          >
-            <article className="message">
-              <div className="message-body" style={{ textAlign: 'center' }}>
-                <p>Let's do this. 🎉</p>
-                <br />
-                <a className="button" href="/login">
-                  Login
-                </a>
-                <br />
-                <br />
-                <a className="button" href="/signup">
-                  Signup
-                </a>
-              </div>
-            </article>
-          </div>
+const Home = () => {
+  return (
+    <div>
+      <div className="container is-fluid">
+        <div
+          className="columns is-mobile is-centered"
+          style={{ margin: '50px 0 60px 0' }}
+        >
+          <article className="message">
+            <div className="message-body" style={{ textAlign: 'center' }}>
+              <p>Let's do this. 🎉</p>
+              <br />
+              <a className="button" href="/login">
+                Login
+              </a>
+              <br />
+              <br />
+              <a className="button" href="/signup">
+                Signup
+              </a>
+            </div>
+          </article>
         </div>
-        <Footer />
       </div>
-    );
-  }
-}
+      <Footer />
+    </div>
+  );
+};
 
-export default Home;
+Home.propTypes = {};
+
+export default Footer;

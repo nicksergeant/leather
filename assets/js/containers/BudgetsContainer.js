@@ -17,12 +17,12 @@ const mapStateToProps = state => {
   return {
     account,
     channel: account
-      ? getChannelByName(state, `stashes:${account.get('id')}`)
+      ? getChannelByName(state, `budgets:${account.get('id')}`)
       : null,
   };
 };
 
-class Stashes extends Component {
+class BudgetsContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
@@ -33,12 +33,12 @@ class Stashes extends Component {
 
   componentWillMount() {
     this.maybeInitChannel(this.props);
-    this.props.setActivePanel('stashes');
+    this.props.setActivePanel('budgets');
   }
 
   componentWillReceiveProps(props) {
     this.maybeInitChannel(props);
-    props.setActivePanel('stashes');
+    props.setActivePanel('budgets');
   }
 
   componentWillUnmount() {
@@ -49,12 +49,12 @@ class Stashes extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`stashes:${account.get('id')}`);
+      this.props.initChannel(`budgets:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', () => {
-        // handle incoming stashes
+        // handle incoming budgets
       });
     }
   }
@@ -65,11 +65,11 @@ class Stashes extends Component {
     }
     return (
       <div className="column content">
-        Stashes for account{' '}
+        Budgets for account{' '}
         <strong>#{this.props.account.get('id')}</strong>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stashes);
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetsContainer);

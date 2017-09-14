@@ -1,13 +1,13 @@
-import App from './components/App';
-import Budgets from './components/Budgets';
+import AppContainer from './containers/AppContainer';
+import BudgetsContainer from './containers/BudgetsContainer';
 import Dashboard from './components/Dashboard';
-import Forecast from './components/Forecast';
+import ForecastContainer from './containers/ForecastContainer';
 import Home from './components/Home';
 import Raven from 'raven-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Stashes from './components/Stashes';
-import Transactions from './components/Transactions';
+import StashesContainer from './containers/StashesContainer';
+import TransactionsContainer from './containers/TransactionsContainer';
 import rootReducer from './reducers/index';
 import socket from './data/socket';
 import thunk from 'redux-thunk';
@@ -38,12 +38,15 @@ if (rootElem) {
     socket.onOpen(() => {
       const router = (
         <Router history={history}>
-          <Route component={App}>
+          <Route component={AppContainer}>
             <Route path="/" component={Dashboard} />
-            <Route path="/:accountId/budgets" component={Budgets} />
-            <Route path="/:accountId/forecast" component={Forecast} />
-            <Route path="/:accountId/stashes" component={Stashes} />
-            <Route path="/:accountId/transactions" component={Transactions} />
+            <Route path="/:accountId/budgets" component={BudgetsContainer} />
+            <Route path="/:accountId/forecast" component={ForecastContainer} />
+            <Route path="/:accountId/stashes" component={StashesContainer} />
+            <Route
+              path="/:accountId/transactions"
+              component={TransactionsContainer}
+            />
           </Route>
         </Router>
       );

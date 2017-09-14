@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import LogoutLink from './LogoutLink';
+import LogoutLink from '../components/LogoutLink';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
   };
 };
 
-class Nav extends Component {
+class NavContainer extends Component {
   static get propTypes() {
     return {
       activePanel: PropTypes.string,
@@ -127,4 +127,4 @@ class Nav extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);

@@ -17,12 +17,12 @@ const mapStateToProps = state => {
   return {
     account,
     channel: account
-      ? getChannelByName(state, `forecast:${account.get('id')}`)
+      ? getChannelByName(state, `transactions:${account.get('id')}`)
       : null,
   };
 };
 
-class Forecast extends Component {
+class TransactionsContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
@@ -33,12 +33,12 @@ class Forecast extends Component {
 
   componentWillMount() {
     this.maybeInitChannel(this.props);
-    this.props.setActivePanel('forecast');
+    this.props.setActivePanel('transactions');
   }
 
   componentWillReceiveProps(props) {
     this.maybeInitChannel(props);
-    props.setActivePanel('forecast');
+    props.setActivePanel('transactions');
   }
 
   componentWillUnmount() {
@@ -49,12 +49,12 @@ class Forecast extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`forecast:${account.get('id')}`);
+      this.props.initChannel(`transactions:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', () => {
-        // handle incoming forecast
+        // handle incoming transactions
       });
     }
   }
@@ -65,11 +65,11 @@ class Forecast extends Component {
     }
     return (
       <div className="column content">
-        Forecast for account{' '}
+        Transactions for account{' '}
         <strong>#{this.props.account.get('id')}</strong>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Forecast);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsContainer);

@@ -14,7 +14,7 @@ const mapStateToProps = state => {
   };
 };
 
-class AccountsList extends Component {
+class AccountsListContainer extends Component {
   static get propTypes() {
     return {
       accounts: PropTypes.instanceOf(Immutable.List),
@@ -48,4 +48,4 @@ class AccountsList extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountsList);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountsListContainer);

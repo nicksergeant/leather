@@ -1,8 +1,8 @@
 import Immutable from 'immutable';
-import Nav from './Nav';
+import NavContainer from './NavContainer';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
+import SidebarContainer from './SidebarContainer';
 import { connect } from 'react-redux';
 import { getActiveAccount, selectAllAccounts } from '../reducers/accounts';
 import { getChannelByName } from '../reducers/channels';
@@ -27,7 +27,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-class App extends Component {
+class AppContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
@@ -79,11 +79,11 @@ class App extends Component {
 
     return (
       <div>
-        <Nav />
+        <NavContainer />
         <div className="container is-fluid">
           <div className="columns is-gapless">
             <div className="column is-one-quarter">
-              <Sidebar />
+              <SidebarContainer />
             </div>
             {this.props.children}
           </div>
@@ -93,4 +93,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
-class Footer extends Component {
-  render() {
-    return (
-      <footer className="footer" style={{ paddingBottom: '3rem' }}>
-        <div className="container">
-          <div className="content has-text-centered">
-            <Link to="/">
-              <img src="/favicon.ico" />
-              <strong style={{ marginLeft: '6px', verticalAlign: '3px' }}>
-                Leather
-              </strong>
-            </Link>
-          </div>
+const Footer = () => {
+  return (
+    <footer className="footer" style={{ paddingBottom: '3rem' }}>
+      <div className="container">
+        <div className="content has-text-centered">
+          <Link to="/">
+            <img src="/favicon.ico" />
+            <strong style={{ marginLeft: '6px', verticalAlign: '3px' }}>
+              Leather
+            </strong>
+          </Link>
         </div>
-      </footer>
-    );
-  }
-}
+      </div>
+    </footer>
+  );
+};
+
+Footer.propTypes = {};
 
 export default Footer;

@@ -1,4 +1,4 @@
-import AccountsList from './AccountsList';
+import AccountsListContainer from './AccountsListContainer';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { addAccount } from '../actions/accounts';
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
   };
 };
 
-class Sidebar extends Component {
+class SidebarContainer extends Component {
   static get propTypes() {
     return {
       addAccount: PropTypes.func,
@@ -44,10 +44,10 @@ class Sidebar extends Component {
         >
           Create new account
         </button>
-        <AccountsList />
+        <AccountsListContainer />
       </aside>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
