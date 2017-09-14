@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { selectActivePanel } from '../reducers/panels';
-import { selectDefaultAccount } from '../reducers/accounts';
+import { selectActivePanel } from '../selectors/panels';
+import { selectDefaultAccount } from '../selectors/accounts';
 
 const mapDispatchToProps = {};
 

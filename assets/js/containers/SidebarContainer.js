@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { addAccount } from '../actions/accounts';
 import { connect } from 'react-redux';
-import { getChannelByName } from '../reducers/channels';
+import { selectChannelByName } from '../selectors/channels';
 
 const mapDispatchToProps = {
   addAccount,
@@ -11,7 +11,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    channel: getChannelByName(state, 'accounts'),
+    channel: selectChannelByName(state, 'accounts'),
   };
 };
 

@@ -1,21 +1,5 @@
 import Immutable from 'immutable';
 import actionTypes from '../actions/actionTypes';
-import { createSelector } from 'reselect';
-
-export const selectActiveAccount = state => state.activeAccount;
-export const selectAllAccounts = state => state.accounts;
-
-export const getActiveAccount = createSelector(
-  selectActiveAccount,
-  selectAllAccounts,
-  (accountId, accounts) => {
-    return accounts.find(account => account.get('id') === accountId);
-  }
-);
-
-export const selectDefaultAccount = state => {
-  return getActiveAccount(state) || selectAllAccounts(state).get(0);
-};
 
 export const accounts = (
   state = Immutable.List(),

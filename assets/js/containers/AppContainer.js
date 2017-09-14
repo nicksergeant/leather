@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SidebarContainer from './SidebarContainer';
 import { connect } from 'react-redux';
-import { getActiveAccount, selectAllAccounts } from '../reducers/accounts';
-import { getChannelByName } from '../reducers/channels';
 import { initChannel } from '../actions/channels';
+import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
+import { selectChannelByName } from '../selectors/channels';
 import { setAccounts, setActiveAccount } from '../actions/accounts';
 
 const mapDispatchToProps = {
@@ -20,10 +20,10 @@ const mapStateToProps = (state, props) => {
     ? parseInt(props.params.accountId, 10)
     : null;
   return {
-    account: getActiveAccount(state),
+    account: selectActiveAccount(state),
     accounts: selectAllAccounts(state),
     accountId,
-    channel: getChannelByName(state, 'accounts'),
+    channel: selectChannelByName(state, 'accounts'),
   };
 };
 

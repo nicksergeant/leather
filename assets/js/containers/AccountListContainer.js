@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { getActiveAccount, selectAllAccounts } from '../reducers/accounts';
+import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
 
 const mapDispatchToProps = {};
 
 const mapStateToProps = state => {
   return {
-    activeAccount: getActiveAccount(state),
+    activeAccount: selectActiveAccount(state),
     accounts: selectAllAccounts(state),
   };
 };

@@ -2,9 +2,9 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getActiveAccount } from '../reducers/accounts';
-import { getChannelByName } from '../reducers/channels';
 import { initChannel } from '../actions/channels';
+import { selectActiveAccount } from '../selectors/accounts';
+import { selectChannelByName } from '../selectors/channels';
 import { setActivePanel } from '../actions/panels';
 
 const mapDispatchToProps = {
@@ -13,11 +13,11 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => {
-  const account = getActiveAccount(state);
+  const account = selectActiveAccount(state);
   return {
     account,
     channel: account
-      ? getChannelByName(state, `stashes:${account.get('id')}`)
+      ? selectChannelByName(state, `stashes:${account.get('id')}`)
       : null,
   };
 };
