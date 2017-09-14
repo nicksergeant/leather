@@ -32,4 +32,4 @@ const Home = () => {
 
 Home.propTypes = {};
 
-export default Footer;
+export default Home;
