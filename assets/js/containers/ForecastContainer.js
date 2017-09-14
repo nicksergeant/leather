@@ -65,8 +65,7 @@ class ForecastContainer extends Component {
     }
     return (
       <div className="column content">
-        Forecast for account{' '}
-        <strong>#{this.props.account.get('id')}</strong>
+        Forecast for account <strong>#{this.props.account.get('id')}</strong>
       </div>
     );
   }

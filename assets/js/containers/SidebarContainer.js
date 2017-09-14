@@ -1,4 +1,4 @@
-import AccountsListContainer from './AccountsListContainer';
+import AccountListContainer from './AccountListContainer';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { addAccount } from '../actions/accounts';
@@ -44,7 +44,7 @@ class SidebarContainer extends Component {
         >
           Create new account
         </button>
-        <AccountsListContainer />
+        <AccountListContainer />
       </aside>
     );
   }

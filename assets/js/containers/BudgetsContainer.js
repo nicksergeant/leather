@@ -65,8 +65,7 @@ class BudgetsContainer extends Component {
     }
     return (
       <div className="column content">
-        Budgets for account{' '}
-        <strong>#{this.props.account.get('id')}</strong>
+        Budgets for account <strong>#{this.props.account.get('id')}</strong>
       </div>
     );
   }

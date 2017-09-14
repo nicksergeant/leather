@@ -65,8 +65,7 @@ class StashesContainer extends Component {
     }
     return (
       <div className="column content">
-        Stashes for account{' '}
-        <strong>#{this.props.account.get('id')}</strong>
+        Stashes for account <strong>#{this.props.account.get('id')}</strong>
       </div>
     );
   }
