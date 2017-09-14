@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { selectActivePanel } from '../reducers/panels';
 import { selectDefaultAccount } from '../reducers/accounts';
 
 const mapDispatchToProps = {};
 
 const mapStateToProps = state => {
   return {
+    activePanel: selectActivePanel(state),
     defaultAccount: selectDefaultAccount(state),
   };
 };
@@ -17,8 +19,13 @@ const mapStateToProps = state => {
 class Nav extends Component {
   static get propTypes() {
     return {
+      activePanel: PropTypes.string,
       defaultAccount: PropTypes.instanceOf(Immutable.Map),
     };
+  }
+
+  panelIsActive(panel) {
+    return panel === this.props.activePanel ? 'active' : '';
   }
 
   render() {
@@ -45,7 +52,10 @@ class Nav extends Component {
         </div>
         <div className="navbar-menu">
           <div className="navbar-start">
-            <Link className="navbar-item" to={`${accountSlug}/transactions`}>
+            <Link
+              className={`navbar-item ${this.panelIsActive('transactions')}`}
+              to={`${accountSlug}/transactions`}
+            >
               <span
                 className="icon"
                 style={{
@@ -57,7 +67,10 @@ class Nav extends Component {
               </span>
               Transactions
             </Link>
-            <Link className="navbar-item" to={`${accountSlug}/forecast`}>
+            <Link
+              className={`navbar-item ${this.panelIsActive('forecast')}`}
+              to={`${accountSlug}/forecast`}
+            >
               <span
                 className="icon"
                 style={{
@@ -69,7 +82,10 @@ class Nav extends Component {
               </span>
               Forecast
             </Link>
-            <Link className="navbar-item" to={`${accountSlug}/stashes`}>
+            <Link
+              className={`navbar-item ${this.panelIsActive('stashes')}`}
+              to={`${accountSlug}/stashes`}
+            >
               <span
                 className="icon"
                 style={{
@@ -81,7 +97,10 @@ class Nav extends Component {
               </span>
               Stashes
             </Link>
-            <Link className="navbar-item" to={`${accountSlug}/budgets`}>
+            <Link
+              className={`navbar-item ${this.panelIsActive('budgets')}`}
+              to={`${accountSlug}/budgets`}
+            >
               <span
                 className="icon"
                 style={{

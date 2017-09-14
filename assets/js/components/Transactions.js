@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { getActiveAccount } from '../reducers/accounts';
 import { getChannelByName } from '../reducers/channels';
 import { initChannel } from '../actions/channels';
+import { setActivePanel } from '../actions/panels';
 
 const mapDispatchToProps = {
   initChannel,
+  setActivePanel,
 };
 
 const mapStateToProps = state => {
@@ -25,15 +27,22 @@ class Transactions extends Component {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
       initChannel: PropTypes.func,
+      setActivePanel: PropTypes.func,
     };
   }
 
   componentWillMount() {
     this.maybeInitChannel(this.props);
+    this.props.setActivePanel('transactions');
   }
 
   componentWillReceiveProps(props) {
     this.maybeInitChannel(props);
+    props.setActivePanel('transactions');
+  }
+
+  componentWillUnmount() {
+    this.props.setActivePanel(null);
   }
 
   maybeInitChannel(props) {

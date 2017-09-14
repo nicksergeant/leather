@@ -24,8 +24,12 @@ class AccountsList extends Component {
 
   render() {
     const accounts = this.props.accounts.map(account => {
-      const isActive = account.get('id') === this.props.activeAccount.get('id');
-      const classes = isActive ? 'active' : '';
+      let classes;
+      if (this.props.activeAccount) {
+        const isActive =
+          account.get('id') === this.props.activeAccount.get('id');
+        classes = isActive ? 'active' : '';
+      }
       return (
         <li key={account.get('id')}>
           <Link className={classes} to={`/${account.get('id')}/transactions`}>
