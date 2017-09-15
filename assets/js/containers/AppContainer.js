@@ -80,13 +80,11 @@ class AppContainer extends Component {
     return (
       <div>
         <NavContainer />
-        <div className="container is-fluid">
-          <div className="columns is-gapless">
-            <div className="column is-one-quarter">
-              <SidebarContainer />
-            </div>
-            {this.props.children}
+        <div className="columns is-gapless">
+          <div className="column is-one-quarter">
+            <SidebarContainer />
           </div>
+          {this.props.children}
         </div>
       </div>
     );

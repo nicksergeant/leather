@@ -32,16 +32,26 @@ class AccountListContainer extends Component {
       }
       return (
         <li key={account.get('id')}>
-          <Link className={classes} to={`/${account.get('id')}/transactions`}>
+          <Link
+            className={classes}
+            style={{ paddingLeft: '24px' }}
+            to={`/${account.get('id')}/transactions`}
+          >
             {account.get('name')} (#{account.get('id')})
-            <br />
+            <span
+              style={{ color: '#9b9b9b', display: 'block', marginTop: '2px' }}
+            >
+              $4,259.02
+            </span>
           </Link>
         </li>
       );
     });
     return (
       <div>
-        <p className="menu-label">Accounts</p>
+        <p className="menu-label" style={{ marginLeft: '24px' }}>
+          Accounts
+        </p>
         <ul className="menu-list">{accounts}</ul>
       </div>
     );

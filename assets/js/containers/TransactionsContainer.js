@@ -64,9 +64,183 @@ class TransactionsContainer extends Component {
       return <div />;
     }
     return (
-      <div className="column content">
-        Transactions for account{' '}
-        <strong>#{this.props.account.get('id')}</strong>
+      <div className="column">
+        <div className="columns is-gapless" style={{ margin: '24px' }}>
+          <div className="column has-text-centered">
+            <a
+              className="button is-pulled-left is-primary"
+              style={{ width: '241px' }}
+            >
+              <span className="icon">
+                <i className="fa fa-plus" />
+              </span>
+              <span>New transaction</span>
+            </a>
+          </div>
+          <div className="column has-text-centered">
+            <p className="subtitle is-5" style={{ marginTop: '4px' }}>
+              <strong>123</strong>&nbsp;transactions
+            </p>
+          </div>
+          <div className="column has-text-centered">
+            <div className="field has-addons is-pulled-right">
+              <div className="control has-icons-left has-icons-right">
+                <input
+                  className="input"
+                  placeholder="Search transactions"
+                  type="text"
+                />
+                <span className="icon is-small is-left">
+                  <i className="fa fa-search" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table className="table is-fullwidth is-narrow">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Payee</th>
+              <th>Category</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>American Express</td>
+              <td>Finance charge</td>
+              <td>$15.66</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Tire Rack</td>
+              <td>Automotive</td>
+              <td>$165.73</td>
+            </tr>
+            <tr>
+              <td>09/13/2017</td>
+              <td>Wegmans</td>
+              <td>Groceries</td>
+              <td>$426.55</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }

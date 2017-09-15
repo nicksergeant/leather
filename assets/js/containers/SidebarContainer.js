@@ -39,10 +39,13 @@ class SidebarContainer extends Component {
       <aside className="menu sidebar">
         <button
           className="button"
-          style={{ marginBottom: '1rem' }}
+          style={{ marginBottom: '24px', marginLeft: '24px' }}
           onClick={this.createAccount}
         >
-          Create new account
+          <span className="icon is-small">
+            <i className="fa fa-bank" />
+          </span>
+          <span>Create new account</span>
         </button>
         <AccountListContainer />
       </aside>
