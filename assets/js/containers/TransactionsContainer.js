@@ -65,7 +65,14 @@ class TransactionsContainer extends Component {
     }
     return (
       <div className="column">
-        <div className="columns is-gapless" style={{ margin: '24px' }}>
+        <div
+          className="columns is-gapless"
+          style={{
+            borderBottom: '1px solid #E5E2DD',
+            marginBottom: '24px',
+            padding: '12px',
+          }}
+        >
           <div className="column has-text-centered">
             <a
               className="button is-pulled-left is-primary"
