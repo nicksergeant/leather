@@ -4,7 +4,10 @@ defmodule LeatherWeb.Endpoint do
   socket "/socket", LeatherWeb.UserSocket
 
   plug Plug.Static,
-    at: "/", from: :leather, gzip: System.get_env("GZIP_ENABLED") === "true" || false,
+    at: "/",
+    cache_control_for_etags: "public, max-age=31536000",
+    from: :leather,
+    gzip: System.get_env("GZIP_ENABLED") === "true" || false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   if code_reloading? do
