@@ -1,18 +1,45 @@
 defmodule LeatherWeb.TransactionsChannel do
   alias Leather.Account
   alias Leather.Repo
+  alias Leather.Transaction
   use LeatherWeb, :channel
 
   def join("transactions:" <> account_id, _params, socket) do
     account =
       Repo.get_by(Account, %{id: account_id, user_id: socket.assigns.user.id})
     if account do
+      transactions = Ecto.assoc(account, :transactions)
+      transactions = transactions
+        |> Repo.all
       resp = %{
-        account: Phoenix.View.render(LeatherWeb.AccountView,
-                                     "account.json",
-                                     %{account: account}),
+        transactions: Phoenix.View.render_many(transactions,
+                                               LeatherWeb.TransactionView,
+                                               "transaction.json"),
       }
-      {:ok, resp, socket}
+      {:ok, resp, assign(socket, :account, account)}
+    else
+      {:error, %{status: 404, message: "Account not found."}}
+    end
+  end
+
+
+  def handle_in("new_transaction", params, socket) do
+    account = socket.assigns.account
+    if account do
+      changeset = account
+        |> Ecto.build_assoc(:transactions)
+        |> Transaction.changeset(params)
+      case Repo.insert(changeset) do
+        {:ok, transaction} ->
+          rendered_transaction =
+            Phoenix.View.render(LeatherWeb.TransactionView,
+                                "transaction.json",
+                                %{transaction: transaction})
+          {:reply, {:ok, rendered_transaction}, socket}
+
+        {:error, changeset} ->
+          {:reply, {:error, %{errors: changeset}}, socket}
+      end
     else
       {:error, %{status: 404, message: "Account not found."}}
     end

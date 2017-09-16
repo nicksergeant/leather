@@ -27,7 +27,11 @@ defmodule LeatherWeb.AccountsChannel do
       |> Account.changeset(params)
     case Repo.insert(changeset) do
       {:ok, account} ->
-        {:reply, {:ok, %{id: account.id, name: account.name}}, socket}
+        rendered_account =
+          Phoenix.View.render(LeatherWeb.AccountView,
+                              "account.json",
+                              %{account: account})
+        {:reply, {:ok, rendered_account}, socket}
 
       {:error, changeset} ->
         {:reply, {:error, %{errors: changeset}}, socket}

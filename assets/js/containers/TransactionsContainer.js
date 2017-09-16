@@ -1,13 +1,17 @@
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { addTransaction, addTransactions } from '../actions/transactions';
 import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
 import { selectChannelByName } from '../selectors/channels';
+import { selectTransactionsForActiveAccount } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
 
 const mapDispatchToProps = {
+  addTransaction,
+  addTransactions,
   initChannel,
   setActivePanel,
 };
@@ -19,6 +23,9 @@ const mapStateToProps = state => {
     channel: account
       ? selectChannelByName(state, `transactions:${account.get('id')}`)
       : null,
+    transactions: account
+      ? selectTransactionsForActiveAccount(state)
+      : Immutable.List(),
   };
 };
 
@@ -26,9 +33,18 @@ class TransactionsContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
+      addTransaction: PropTypes.func,
+      addTransactions: PropTypes.func,
+      channel: PropTypes.object,
       initChannel: PropTypes.func,
       setActivePanel: PropTypes.func,
+      transactions: PropTypes.instanceOf(Immutable.List),
     };
+  }
+
+  constructor(props) {
+    super(props);
+    this.createTransaction = this.createTransaction.bind(this);
   }
 
   componentWillMount() {
@@ -45,6 +61,15 @@ class TransactionsContainer extends Component {
     this.props.setActivePanel(null);
   }
 
+  createTransaction() {
+    this.props.addTransaction(this.props.channel, {
+      amount: 112,
+      name: 'Test Transaction Name',
+      official_name: 'Official name',
+      type: 'debit',
+    });
+  }
+
   maybeInitChannel(props) {
     const { account, channel } = props;
 
@@ -53,8 +78,8 @@ class TransactionsContainer extends Component {
     }
 
     if (channel && channel.state === 'closed') {
-      channel.join().receive('ok', () => {
-        // handle incoming transactions
+      channel.join().receive('ok', ({ transactions }) => {
+        this.props.addTransactions(transactions);
       });
     }
   }
@@ -63,6 +88,16 @@ class TransactionsContainer extends Component {
     if (!this.props.account || !this.props.account.get('id')) {
       return <div />;
     }
+
+    const transactions = this.props.transactions.map(transaction => (
+      <tr key={transaction.get('id')}>
+        <td>09/13/2017</td>
+        <td>{transaction.get('name')}</td>
+        <td>Automotive</td>
+        <td>$165.73</td>
+      </tr>
+    ));
+
     return (
       <div className="column">
         <div
@@ -76,6 +111,7 @@ class TransactionsContainer extends Component {
           <div className="column has-text-centered">
             <a
               className="button is-pulled-left is-primary"
+              onClick={this.createTransaction}
               style={{ width: '241px' }}
             >
               <span className="icon">
@@ -86,7 +122,7 @@ class TransactionsContainer extends Component {
           </div>
           <div className="column has-text-centered">
             <p className="subtitle is-5" style={{ marginTop: '4px' }}>
-              <strong>123</strong>&nbsp;transactions
+              <strong>{this.props.transactions.size}</strong>&nbsp;transactions
             </p>
           </div>
           <div className="column has-text-centered">
@@ -113,140 +149,7 @@ class TransactionsContainer extends Component {
               <th>Amount</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>American Express</td>
-              <td>Finance charge</td>
-              <td>$15.66</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Tire Rack</td>
-              <td>Automotive</td>
-              <td>$165.73</td>
-            </tr>
-            <tr>
-              <td>09/13/2017</td>
-              <td>Wegmans</td>
-              <td>Groceries</td>
-              <td>$426.55</td>
-            </tr>
-          </tbody>
+          <tbody>{transactions}</tbody>
         </table>
       </div>
     );
