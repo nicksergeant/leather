@@ -30,6 +30,12 @@ You can click the button below to automatically deploy Leather to Heroku.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nicksergeant/leather)
 
+#### Important!
+
+If you intend to use this instance securely, you must set the `HEROKU_DOMAIN` environment variable so that WebSocket connections are restricted to your domain:
+
+`heroku config:set HEROKU_DOMAIN="<your-domain>"`
+
 ### Manual deploy to Heroku
 
 1. `heroku create <app-name>`
