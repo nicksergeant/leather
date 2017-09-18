@@ -6,9 +6,7 @@ config :leather,
         force_ssl: [rewrite_on: [:x_forwarded_proto]],
         load_from_system_env: true,
         secret_key_base: Map.fetch!(System.get_env, "SECRET_KEY_BASE"),
-        url: [scheme: "https",
-         host: System.get_env("HEROKU_DOMAIN") || "example.com",
-         port: 443]
+        url: [scheme: "https", port: 443]
 config :logger, level: :info
 config :leather,
        Leather.Repo,
@@ -17,11 +15,9 @@ config :leather,
         pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
         ssl: true
 config :sentry,
-  dsn: System.get_env("SENTRY_DSN") || "",
-  environment_name: :prod,
-  enable_source_code_context: true,
-  root_source_code_path: File.cwd!,
-  tags: %{
-    env: "production"
-  },
-  included_environments: [:prod]
+       dsn: System.get_env("SENTRY_DSN") || "",
+        environment_name: :prod,
+        enable_source_code_context: true,
+        root_source_code_path: File.cwd!,
+        tags: %{env: "production"},
+        included_environments: [:prod]

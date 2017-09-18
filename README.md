@@ -24,7 +24,13 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 9. `mix phoenix.server`
 10. Visit [http://localhost:4000/](http://localhost:4000/).
 
-### Deploy to Heroku
+## Automatic deploy to Heroku
+
+You can click the button below to automatically deploy Leather to Heroku.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nicksergeant/leather)
+
+### Manual deploy to Heroku
 
 1. `heroku create <app-name>`
 2. `heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir`

@@ -1,0 +1,31 @@
+{
+  "name": "Leather",
+  "description": "A modern money management app.",
+  "keywords": [
+    "elixir",
+    "phoenix",
+    "react",
+    "redux",
+    "plaid",
+    "money-manager"
+  ],
+  "website": "https://app.leatherapp.com",
+  "repository": "https://github.com/nicksergeant/leather",
+  "logo": "https://leatherapp.s3.amazonaws.com/logo.png",
+  "success_url": "/",
+  "env": {
+    "GZIP_ENABLED": "true",
+    "POOL_SIZE": "18",
+    "SECRET_KEY_BASE": {
+      "description": "Secret key for Elixir to use.",
+      "generator": "secret"
+    }
+  },
+  "buildpacks": [
+    "https://github.com/HashNuke/heroku-buildpack-elixir",
+    "https://github.com/gjaldon/heroku-buildpack-phoenix-static"
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ]
+}
