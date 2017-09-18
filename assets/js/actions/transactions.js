@@ -21,3 +21,25 @@ export const addTransactions = payload => {
     type: actionTypes.ADD_TRANSACTIONS,
   };
 };
+
+export const updateTransactionName = payload => {
+  return {
+    payload,
+    type: actionTypes.UPDATE_TRANSACTION_NAME,
+  };
+};
+
+export const saveTransaction = (channel, payload) => dispatch => {
+  dispatch({ type: actionTypes.SAVE_TRANSACTION_REQUEST });
+  channel
+    .push('update_transaction', payload)
+    .receive('ok', response => {
+      dispatch({
+        response,
+        type: actionTypes.SAVE_TRANSACTION_SUCCESS,
+      });
+    })
+    .receive('error', () => {
+      dispatch({ type: actionTypes.SAVE_TRANSACTION_FAILURE });
+    });
+};

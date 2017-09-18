@@ -1,25 +1,35 @@
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { addTransaction, addTransactions } from '../actions/transactions';
+import Transaction from '../components/Transaction.js';
 import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
+import { selectActivePanel } from '../selectors/panels';
 import { selectChannelByName } from '../selectors/channels';
 import { selectTransactionsForActiveAccount } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
+import {
+  addTransaction,
+  addTransactions,
+  saveTransaction,
+  updateTransactionName,
+} from '../actions/transactions';
 
 const mapDispatchToProps = {
   addTransaction,
   addTransactions,
   initChannel,
+  saveTransaction,
   setActivePanel,
+  updateTransactionName,
 };
 
 const mapStateToProps = state => {
   const account = selectActiveAccount(state);
   return {
     account,
+    activePanel: selectActivePanel(state),
     channel: account
       ? selectChannelByName(state, `transactions:${account.get('id')}`)
       : null,
@@ -33,18 +43,22 @@ class TransactionsContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
+      activePanel: PropTypes.string,
       addTransaction: PropTypes.func,
       addTransactions: PropTypes.func,
       channel: PropTypes.object,
       initChannel: PropTypes.func,
+      saveTransaction: PropTypes.func,
       setActivePanel: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
+      updateTransactionName: PropTypes.func,
     };
   }
 
   constructor(props) {
     super(props);
     this.createTransaction = this.createTransaction.bind(this);
+    this.onSaveTransaction = this.onSaveTransaction.bind(this);
   }
 
   componentWillMount() {
@@ -54,7 +68,9 @@ class TransactionsContainer extends Component {
 
   componentWillReceiveProps(props) {
     this.maybeInitChannel(props);
-    props.setActivePanel('transactions');
+    if (props.activePanel !== 'transactions') {
+      props.setActivePanel('transactions');
+    }
   }
 
   componentWillUnmount() {
@@ -84,18 +100,23 @@ class TransactionsContainer extends Component {
     }
   }
 
+  onSaveTransaction(transaction) {
+    // TODO: don't save if nothing has changed.
+    this.props.saveTransaction(this.props.channel, transaction);
+  }
+
   render() {
     if (!this.props.account || !this.props.account.get('id')) {
       return <div />;
     }
 
     const transactions = this.props.transactions.map(transaction => (
-      <tr key={transaction.get('id')}>
-        <td>09/13/2017</td>
-        <td>{transaction.get('name')}</td>
-        <td>Automotive</td>
-        <td>$165.73</td>
-      </tr>
+      <Transaction
+        key={transaction.get('id')}
+        onSaveTransaction={this.onSaveTransaction}
+        onUpdateName={this.props.updateTransactionName}
+        transaction={transaction}
+      />
     ));
 
     return (

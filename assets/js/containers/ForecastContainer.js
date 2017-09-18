@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
+import { selectActivePanel } from '../selectors/panels';
 import { selectChannelByName } from '../selectors/channels';
 import { setActivePanel } from '../actions/panels';
 
@@ -16,6 +17,7 @@ const mapStateToProps = state => {
   const account = selectActiveAccount(state);
   return {
     account,
+    activePanel: selectActivePanel(state),
     channel: account
       ? selectChannelByName(state, `forecast:${account.get('id')}`)
       : null,
@@ -26,6 +28,7 @@ class ForecastContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
+      activePanel: PropTypes.string,
       initChannel: PropTypes.func,
       setActivePanel: PropTypes.func,
     };
@@ -38,7 +41,9 @@ class ForecastContainer extends Component {
 
   componentWillReceiveProps(props) {
     this.maybeInitChannel(props);
-    props.setActivePanel('forecast');
+    if (props.activePanel !== 'forecast') {
+      props.setActivePanel('forecast');
+    }
   }
 
   componentWillUnmount() {

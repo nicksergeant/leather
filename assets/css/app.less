@@ -22,3 +22,28 @@ aside.sidebar {
     background: #f5f5f5 - 15;
   }
 }
+
+.table {
+  thead tr:hover {
+    background: transparent;
+  }
+  tr.transaction {
+    &:hover {
+      background: transparent;
+    }
+    td {
+      padding: 0;
+
+      input {
+        border: 0;
+        font-size: 1rem;
+        padding: 0.25em 0.5em;
+        width: 100%;
+
+        &:focus {
+          outline: 2px solid #02adef;
+        }
+      }
+    }
+  }
+}

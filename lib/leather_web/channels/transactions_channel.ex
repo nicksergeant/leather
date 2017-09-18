@@ -44,4 +44,26 @@ defmodule LeatherWeb.TransactionsChannel do
       {:error, %{status: 404, message: "Account not found."}}
     end
   end
+
+  def handle_in("update_transaction", params, socket) do
+    account = socket.assigns.account
+    transaction =
+      Repo.get_by(Transaction, %{id: params["id"], account_id: account.id})
+    if account && transaction do
+      changeset = Ecto.Changeset.change(transaction, %{name: params["name"]})
+      case Repo.update(changeset) do
+        {:ok, transaction} ->
+          rendered_transaction =
+            Phoenix.View.render(LeatherWeb.TransactionView,
+                                "transaction.json",
+                                %{transaction: transaction})
+          {:reply, {:ok, rendered_transaction}, socket}
+
+        {:error, changeset} ->
+          {:reply, {:error, %{errors: changeset}}, socket}
+      end
+    else
+      {:error, %{status: 404, message: "Account or transaction not found."}}
+    end
+  end
 end
