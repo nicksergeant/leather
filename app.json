@@ -13,6 +13,9 @@
   "repository": "https://github.com/nicksergeant/leather",
   "logo": "https://leatherapp.s3.amazonaws.com/logo.png",
   "success_url": "/",
+  "scripts": {
+    "postdeploy": "mix ecto.migrate"
+  },
   "env": {
     "GZIP_ENABLED": "true",
     "POOL_SIZE": "18",
