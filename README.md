@@ -9,7 +9,7 @@ etc.)
 
 Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 
-![https://leatherapp.s3.amazonaws.com/screenshot.png](https://leatherapp.s3.amazonaws.com/screenshot.png)
+![https://leatherapp.s3.amazonaws.com/leather-screenshot.png](https://leatherapp.s3.amazonaws.com/leather-screenshot.png)
 
 ## Run locally
 
