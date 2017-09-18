@@ -6,9 +6,9 @@ config :leather,
         force_ssl: [rewrite_on: [:x_forwarded_proto]],
         load_from_system_env: true,
         secret_key_base: Map.fetch!(System.get_env, "SECRET_KEY_BASE"),
-        check_origin: (if System.get_env("HEROKU_DOMAIN"), do: ["https://" <> System.get_env("HEROKU_DOMAIN")], else: false),
+        check_origin: (if System.get_env("HOSTNAME"), do: ["https://" <> System.get_env("HOSTNAME")], else: false),
         url: [scheme: "https",
-         host: System.get_env("HEROKU_DOMAIN") || "example.com",
+         host: System.get_env("HOSTNAME") || "example.com",
          port: 443]
 config :logger, level: :info
 config :leather,

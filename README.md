@@ -11,7 +11,7 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 
 ![https://leatherapp.s3.amazonaws.com/breaking-cash.gif](https://leatherapp.s3.amazonaws.com/breaking-cash.gif)
 
-### Run locally
+## Run locally
 
 1. `brew install elixir postgresql`
 2. `brew services start postgresql`
@@ -32,11 +32,11 @@ You can click the button below to automatically deploy Leather to Heroku.
 
 #### Important!
 
-If you intend to use this instance securely, you must set the `HEROKU_DOMAIN` environment variable so that WebSocket connections are restricted to your domain:
+If you intend to use this instance securely, you must set the `HOSTNAME` environment variable so that WebSocket connections are restricted to your domain:
 
-`heroku config:set HEROKU_DOMAIN="<your-domain>"`
+`heroku config:set HOSTNAME="<your-domain>"`
 
-### Manual deploy to Heroku
+## Manual deploy to Heroku
 
 1. `heroku create <app-name>`
 2. `heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir`
@@ -46,5 +46,5 @@ If you intend to use this instance securely, you must set the `HEROKU_DOMAIN` en
 6. `mix phoenix.gen.secret`
 7. `heroku config:set SECRET_KEY_BASE="<generated-key-in-previous-step>"`
 8. `heroku domains:add <your-domain>`
-9. `heroku config:set HEROKU_DOMAIN="<your-domain>"`
+9. `heroku config:set HOSTNAME="<your-domain>"`
 10. `heroku config:set GZIP_ENABLED="true"`
