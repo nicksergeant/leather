@@ -9,7 +9,9 @@ etc.)
 
 Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 
-<img src="https://leatherapp.s3.amazonaws.com/github-screenshot.png" width=700 />
+#### Screenshot:
+
+<img src="https://leatherapp.s3.amazonaws.com/gh-screenshot.png" width=700 />
 
 ## Run locally
 
