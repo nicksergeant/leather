@@ -22,8 +22,8 @@
     }
   },
   "buildpacks": [
-    "https://github.com/HashNuke/heroku-buildpack-elixir",
-    "https://github.com/gjaldon/heroku-buildpack-phoenix-static"
+    { "url": "https://github.com/HashNuke/heroku-buildpack-elixir" },
+    { "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static" }
   ],
   "addons": [
     "heroku-postgresql:hobby-dev"
