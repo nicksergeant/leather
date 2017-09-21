@@ -22,6 +22,13 @@ export const addTransactions = payload => {
   };
 };
 
+export const updateTransactionAmount = payload => {
+  return {
+    payload,
+    type: actionTypes.UPDATE_TRANSACTION_AMOUNT,
+  };
+};
+
 export const updateTransactionName = payload => {
   return {
     payload,

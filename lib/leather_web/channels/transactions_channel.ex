@@ -50,7 +50,11 @@ defmodule LeatherWeb.TransactionsChannel do
     transaction =
       Repo.get_by(Transaction, %{id: params["id"], account_id: account.id})
     if account && transaction do
-      changeset = Ecto.Changeset.change(transaction, %{name: params["name"]})
+      change = %{
+        amount: params["amount"],
+        name: params["name"],
+      }
+      changeset = Ecto.Changeset.change(transaction, change)
       case Repo.update(changeset) do
         {:ok, transaction} ->
           rendered_transaction =

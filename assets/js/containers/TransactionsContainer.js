@@ -13,6 +13,7 @@ import {
   addTransaction,
   addTransactions,
   saveTransaction,
+  updateTransactionAmount,
   updateTransactionName,
 } from '../actions/transactions';
 
@@ -22,6 +23,7 @@ const mapDispatchToProps = {
   initChannel,
   saveTransaction,
   setActivePanel,
+  updateTransactionAmount,
   updateTransactionName,
 };
 
@@ -51,6 +53,7 @@ class TransactionsContainer extends Component {
       saveTransaction: PropTypes.func,
       setActivePanel: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
+      updateTransactionAmount: PropTypes.func,
       updateTransactionName: PropTypes.func,
     };
   }
@@ -114,6 +117,7 @@ class TransactionsContainer extends Component {
       <Transaction
         key={transaction.get('id')}
         onSaveTransaction={this.onSaveTransaction}
+        onUpdateAmount={this.props.updateTransactionAmount}
         onUpdateName={this.props.updateTransactionName}
         transaction={transaction}
       />

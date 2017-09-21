@@ -10,6 +10,15 @@ export const transactions = (
       return state.push(Immutable.fromJS(response));
     case actionTypes.ADD_TRANSACTIONS:
       return state.push(...Immutable.fromJS(payload));
+    case actionTypes.UPDATE_TRANSACTION_AMOUNT:
+      return state.map(transaction => {
+        if (transaction.get('id') === payload.transactionId) {
+          return transaction.merge({
+            amount: payload.amount,
+          });
+        }
+        return transaction;
+      });
     case actionTypes.UPDATE_TRANSACTION_NAME:
       return state.map(transaction => {
         if (transaction.get('id') === payload.transactionId) {

@@ -6,6 +6,7 @@ class Transaction extends Component {
   static get propTypes() {
     return {
       onSaveTransaction: PropTypes.func.isRequired,
+      onUpdateAmount: PropTypes.func.isRequired,
       onUpdateName: PropTypes.func.isRequired,
       transaction: PropTypes.instanceOf(Immutable.Map),
     };
@@ -20,8 +21,8 @@ class Transaction extends Component {
             onBlur={() => this.props.onSaveTransaction(this.props.transaction)}
             onChange={e => {
               this.props.onUpdateName({
-                transactionId: this.props.transaction.get('id'),
                 name: e.target.value,
+                transactionId: this.props.transaction.get('id'),
               });
             }}
             type="text"
@@ -29,7 +30,19 @@ class Transaction extends Component {
           />
         </td>
         <td>Automotive</td>
-        <td>$165.73</td>
+        <td>
+          <input
+            onBlur={() => this.props.onSaveTransaction(this.props.transaction)}
+            onChange={e => {
+              this.props.onUpdateAmount({
+                amount: parseInt(e.target.value, 10),
+                transactionId: this.props.transaction.get('id'),
+              });
+            }}
+            type="text"
+            value={this.props.transaction.get('amount')}
+          />
+        </td>
       </tr>
     );
   }
