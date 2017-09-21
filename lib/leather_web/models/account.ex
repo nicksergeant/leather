@@ -9,6 +9,9 @@ defmodule Leather.Account do
   use Ecto.Schema
 
   schema "accounts" do
+    field :balance_available, :integer, default: 0
+    field :balance_current, :integer, default: 0
+    field :balance_limit, :integer, default: 0
     field :name, :string
     timestamps()
     belongs_to :user, Leather.User

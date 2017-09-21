@@ -41,7 +41,7 @@ class AccountListContainer extends Component {
             <span
               style={{ color: '#9b9b9b', display: 'block', marginTop: '2px' }}
             >
-              $4,259.02
+              ${account.get('balance_current')}
             </span>
           </Link>
         </li>

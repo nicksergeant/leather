@@ -2,6 +2,12 @@ defmodule LeatherWeb.AccountView do
   use LeatherWeb, :view
 
   def render("account.json", %{account: account}) do
-    %{id: account.id, name: account.name}
+    %{
+      balance_available: account.balance_available,
+      balance_current: account.balance_current,
+      balance_limit: account.balance_limit,
+      id: account.id,
+      name: account.name,
+    }
   end
 end
