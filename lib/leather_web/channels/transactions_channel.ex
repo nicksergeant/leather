@@ -54,7 +54,7 @@ defmodule LeatherWeb.TransactionsChannel do
         amount: params["amount"],
         name: params["name"],
       }
-      changeset = Ecto.Changeset.change(transaction, change)
+      changeset = Transaction.changeset(transaction, change)
       case Repo.update(changeset) do
         {:ok, transaction} ->
           rendered_transaction =
