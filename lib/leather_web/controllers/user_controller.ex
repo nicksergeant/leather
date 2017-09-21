@@ -1,8 +1,10 @@
 defmodule LeatherWeb.UserController do
+  @moduledoc false
+
   use LeatherWeb, :controller
 
-  plug :forbid_authenticated_users when action in
-        [:login, :login_form, :signup, :signup_form]
+  plug :forbid_authenticated_users
+       when action in [:login, :login_form, :signup, :signup_form]
   alias Leather.Repo
   alias Leather.User
 
@@ -33,7 +35,7 @@ defmodule LeatherWeb.UserController do
 
   def logout(conn, _) do
     conn
-    |> Leather.Auth.logout
+    |> Leather.Auth.logout()
     |> redirect(to: "/")
   end
 

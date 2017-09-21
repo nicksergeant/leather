@@ -2,7 +2,9 @@ defmodule Leather.Transaction do
   @moduledoc "The Transaction model for Leather."
 
   alias Leather.Transaction
+
   import Ecto.Changeset
+
   use Ecto.Schema
 
   schema "transactions" do

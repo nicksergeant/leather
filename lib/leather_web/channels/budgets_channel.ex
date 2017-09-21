@@ -1,6 +1,9 @@
 defmodule LeatherWeb.BudgetsChannel do
+  @moduledoc false
+
   alias Leather.Account
   alias Leather.Repo
+
   use LeatherWeb, :channel
 
   def join("budgets:" <> account_id, _params, socket) do

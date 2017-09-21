@@ -1,6 +1,9 @@
 defmodule LeatherWeb.StashesChannel do
+  @moduledoc false
+
   alias Leather.Account
   alias Leather.Repo
+
   use LeatherWeb, :channel
 
   def join("stashes:" <> account_id, _params, socket) do

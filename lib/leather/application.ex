@@ -1,4 +1,6 @@
 defmodule Leather.Application do
+  @moduledoc false
+
   use Application
 
   def start(_type, _args) do
@@ -8,18 +10,16 @@ defmodule Leather.Application do
       supervisor(Leather.Repo, []),
       supervisor(LeatherWeb.Endpoint, []),
     ]
-
     opts = [strategy: :one_for_one, name: Leather.Supervisor]
-
-    if Mix.env == :prod do
+    if Mix.env() == :prod do
       :ok = :error_logger.add_report_handler(Sentry.Logger)
     end
-
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link children, opts
   end
 
+
   def config_change(changed, _new, removed) do
-    LeatherWeb.Endpoint.config_change(changed, removed)
+    LeatherWeb.Endpoint.config_change changed, removed
     :ok
   end
 end

@@ -1,4 +1,6 @@
 defmodule LeatherWeb.ErrorView do
+  @moduledoc false
+
   use LeatherWeb, :view
 
   def render("404.html", _assigns) do
@@ -8,6 +10,7 @@ defmodule LeatherWeb.ErrorView do
   def render("500.html", _assigns) do
     "Internal server error"
   end
+
 
   # In case no render clause matches or no
   # template is found, let's render it as 500

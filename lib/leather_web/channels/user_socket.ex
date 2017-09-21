@@ -1,15 +1,14 @@
 defmodule LeatherWeb.UserSocket do
+  @moduledoc false
+
   use Phoenix.Socket
 
-  # Channels
   channel "accounts", LeatherWeb.AccountsChannel
   channel "budgets:*", LeatherWeb.BudgetsChannel
   channel "forecast:*", LeatherWeb.ForecastChannel
   channel "stashes:*", LeatherWeb.StashesChannel
   channel "transactions:*", LeatherWeb.TransactionsChannel
-  # Transports
   transport :websocket, Phoenix.Transports.WebSocket
-  # transport :longpoll, Phoenix.Transports.LongPoll
   @max_age 2 * 7 * 24 * 60 * 60
   def connect(%{"token" => token}, socket) do
     case Phoenix.Token.verify(socket,

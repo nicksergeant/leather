@@ -1,6 +1,9 @@
 defmodule LeatherWeb.ForecastChannel do
+  @moduledoc false
+
   alias Leather.Account
   alias Leather.Repo
+
   use LeatherWeb, :channel
 
   def join("forecast:" <> account_id, _params, socket) do

@@ -4,6 +4,7 @@ defmodule LeatherWeb.TransactionsChannel do
   alias Leather.Account
   alias Leather.Repo
   alias Leather.Transaction
+
   use LeatherWeb, :channel
 
   def join("transactions:" <> account_id, _params, socket) do
@@ -11,8 +12,9 @@ defmodule LeatherWeb.TransactionsChannel do
       Repo.get_by(Account, %{id: account_id, user_id: socket.assigns.user.id})
     if account do
       transactions = Ecto.assoc(account, :transactions)
-      transactions = transactions
-        |> Repo.all
+      transactions =
+        transactions
+        |> Repo.all()
       resp = %{
         transactions: Phoenix.View.render_many(transactions,
                                                LeatherWeb.TransactionView,
@@ -28,7 +30,8 @@ defmodule LeatherWeb.TransactionsChannel do
   def handle_in("new_transaction", params, socket) do
     account = socket.assigns.account
     if account do
-      changeset = account
+      changeset =
+        account
         |> Ecto.build_assoc(:transactions)
         |> Transaction.changeset(params)
       case Repo.insert(changeset) do

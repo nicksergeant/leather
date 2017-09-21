@@ -1,4 +1,6 @@
 defmodule LeatherWeb.TransactionView do
+  @moduledoc false
+
   use LeatherWeb, :view
 
   def render("transaction.json", %{transaction: transaction}) do

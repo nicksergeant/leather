@@ -2,7 +2,9 @@ defmodule Leather.User do
   @moduledoc "The User model for Leather."
 
   alias Leather.User
+
   import Ecto.Changeset
+
   use Ecto.Schema
 
   schema "users" do

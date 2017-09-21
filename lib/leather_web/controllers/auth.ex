@@ -1,5 +1,8 @@
 defmodule Leather.Auth do
+  @moduledoc false
+
   alias Leather.User
+
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   import Plug.Conn
 

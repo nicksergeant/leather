@@ -15,8 +15,11 @@ defmodule LeatherWeb.ErrorHelpers do
   @doc "Generates input class based on whether the field has an error or not."
   def input_class(form, field) do
     case Keyword.get_values(form.errors, field) do
-      [_|_] -> "input is-danger"
-      [] -> "input"
+      [_ | _] ->
+        "input is-danger"
+
+      [] ->
+        "input"
     end
   end
 
