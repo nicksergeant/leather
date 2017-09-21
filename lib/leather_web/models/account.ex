@@ -2,7 +2,10 @@ defmodule Leather.Account do
   @moduledoc "The Account model for Leather."
 
   alias Leather.Account
+  alias Leather.Repo
+  alias Leather.Transaction
   import Ecto.Changeset
+  import Ecto.Query
   use Ecto.Schema
 
   schema "accounts" do
@@ -18,5 +21,14 @@ defmodule Leather.Account do
     account
     |> cast(attrs, [:name])
     |> validate_required([:name])
+  end
+
+
+  @doc false
+  def calculate_balance(%Account{} = account) do
+    transactions = Transaction
+      |> Ecto.Query.where(account_id: ^account.id)
+      |> Repo.all
+    IO.inspect "calculating from #{Enum.count(transactions)} transactions"
   end
 end

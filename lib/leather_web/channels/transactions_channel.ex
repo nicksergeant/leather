@@ -1,4 +1,6 @@
 defmodule LeatherWeb.TransactionsChannel do
+  @moduledoc false
+
   alias Leather.Account
   alias Leather.Repo
   alias Leather.Transaction
@@ -31,6 +33,7 @@ defmodule LeatherWeb.TransactionsChannel do
         |> Transaction.changeset(params)
       case Repo.insert(changeset) do
         {:ok, transaction} ->
+          Account.calculate_balance account
           rendered_transaction =
             Phoenix.View.render(LeatherWeb.TransactionView,
                                 "transaction.json",
@@ -50,13 +53,11 @@ defmodule LeatherWeb.TransactionsChannel do
     transaction =
       Repo.get_by(Transaction, %{id: params["id"], account_id: account.id})
     if account && transaction do
-      change = %{
-        amount: params["amount"],
-        name: params["name"],
-      }
+      change = %{amount: params["amount"], name: params["name"]}
       changeset = Transaction.changeset(transaction, change)
       case Repo.update(changeset) do
         {:ok, transaction} ->
+          Account.calculate_balance account
           rendered_transaction =
             Phoenix.View.render(LeatherWeb.TransactionView,
                                 "transaction.json",
