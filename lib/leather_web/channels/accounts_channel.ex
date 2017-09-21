@@ -1,4 +1,6 @@
 defmodule LeatherWeb.AccountsChannel do
+  @moduledoc false
+
   alias Leather.Account
   alias Leather.Repo
   alias Leather.User

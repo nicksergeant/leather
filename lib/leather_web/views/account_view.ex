@@ -1,4 +1,6 @@
 defmodule LeatherWeb.AccountView do
+  @moduledoc false
+
   use LeatherWeb, :view
 
   def render("account.json", %{account: account}) do
