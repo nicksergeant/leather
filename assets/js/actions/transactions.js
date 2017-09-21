@@ -15,10 +15,25 @@ export const addTransaction = (channel, payload) => dispatch => {
     });
 };
 
-export const addTransactions = payload => {
+export const saveTransaction = (channel, payload) => dispatch => {
+  dispatch({ type: actionTypes.SAVE_TRANSACTION_REQUEST });
+  channel
+    .push('update_transaction', payload)
+    .receive('ok', response => {
+      dispatch({
+        response,
+        type: actionTypes.SAVE_TRANSACTION_SUCCESS,
+      });
+    })
+    .receive('error', () => {
+      dispatch({ type: actionTypes.SAVE_TRANSACTION_FAILURE });
+    });
+};
+
+export const setTransactions = payload => {
   return {
     payload,
-    type: actionTypes.ADD_TRANSACTIONS,
+    type: actionTypes.SET_TRANSACTIONS,
   };
 };
 
@@ -34,19 +49,4 @@ export const updateTransactionName = payload => {
     payload,
     type: actionTypes.UPDATE_TRANSACTION_NAME,
   };
-};
-
-export const saveTransaction = (channel, payload) => dispatch => {
-  dispatch({ type: actionTypes.SAVE_TRANSACTION_REQUEST });
-  channel
-    .push('update_transaction', payload)
-    .receive('ok', response => {
-      dispatch({
-        response,
-        type: actionTypes.SAVE_TRANSACTION_SUCCESS,
-      });
-    })
-    .receive('error', () => {
-      dispatch({ type: actionTypes.SAVE_TRANSACTION_FAILURE });
-    });
 };

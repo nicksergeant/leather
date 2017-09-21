@@ -11,18 +11,18 @@ import { selectTransactionsForActiveAccount } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
 import {
   addTransaction,
-  addTransactions,
   saveTransaction,
+  setTransactions,
   updateTransactionAmount,
   updateTransactionName,
 } from '../actions/transactions';
 
 const mapDispatchToProps = {
   addTransaction,
-  addTransactions,
   initChannel,
   saveTransaction,
   setActivePanel,
+  setTransactions,
   updateTransactionAmount,
   updateTransactionName,
 };
@@ -47,11 +47,11 @@ class TransactionsContainer extends Component {
       account: PropTypes.instanceOf(Immutable.Map),
       activePanel: PropTypes.string,
       addTransaction: PropTypes.func,
-      addTransactions: PropTypes.func,
       channel: PropTypes.object,
       initChannel: PropTypes.func,
       saveTransaction: PropTypes.func,
       setActivePanel: PropTypes.func,
+      setTransactions: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
       updateTransactionAmount: PropTypes.func,
       updateTransactionName: PropTypes.func,
@@ -98,7 +98,7 @@ class TransactionsContainer extends Component {
 
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', ({ transactions }) => {
-        this.props.addTransactions(transactions);
+        this.props.setTransactions(transactions);
       });
     }
   }
