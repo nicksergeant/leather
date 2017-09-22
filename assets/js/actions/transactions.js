@@ -10,6 +10,10 @@ export const addTransaction = (channel, payload) => dispatch => {
 };
 
 export const addTransactions = payload => {
+  // TODO: don't add duplicate transactions, update them instead.
+  // This can happen when a channel join() happens after a network
+  // reconnection, and the user already has transactions in the
+  // store.
   return {
     payload,
     type: actionTypes.ADD_TRANSACTIONS,
