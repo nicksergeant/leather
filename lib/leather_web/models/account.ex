@@ -24,7 +24,8 @@ defmodule Leather.Account do
   @doc false
   def changeset(%Account{} = account, attrs \\ :invalid) do
     account
-    |> cast(attrs, [:name])
+    |> cast(attrs,
+            [:name, :balance_available, :balance_current, :balance_limit])
     |> validate_required([:name])
   end
 
@@ -35,6 +36,8 @@ defmodule Leather.Account do
       Transaction
       |> Ecto.Query.where(account_id: ^(account.id))
       |> Repo.all()
-    IO.inspect "calculating from #{Enum.count(transactions)} transactions"
+    new_balance = 10
+    changeset = Account.changeset(account, %{balance_current: new_balance})
+    Repo.update changeset
   end
 end

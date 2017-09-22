@@ -36,12 +36,7 @@ defmodule LeatherWeb.TransactionsChannel do
         |> Transaction.changeset(params)
       case Repo.insert(changeset) do
         {:ok, transaction} ->
-          Account.calculate_balance account
-          rendered_transaction =
-            Phoenix.View.render(LeatherWeb.TransactionView,
-                                "transaction.json",
-                                %{transaction: transaction})
-          {:reply, {:ok, rendered_transaction}, socket}
+          reply_success socket, transaction, account, "transaction_added"
 
         {:error, changeset} ->
           {:reply, {:error, %{errors: changeset}}, socket}
@@ -60,12 +55,7 @@ defmodule LeatherWeb.TransactionsChannel do
       changeset = Transaction.changeset(transaction, change)
       case Repo.update(changeset) do
         {:ok, transaction} ->
-          Account.calculate_balance account
-          rendered_transaction =
-            Phoenix.View.render(LeatherWeb.TransactionView,
-                                "transaction.json",
-                                %{transaction: transaction})
-          {:reply, {:ok, rendered_transaction}, socket}
+          reply_success socket, transaction, account, "transaction_updated"
 
         {:error, changeset} ->
           {:reply, {:error, %{errors: changeset}}, socket}
@@ -73,5 +63,21 @@ defmodule LeatherWeb.TransactionsChannel do
     else
       {:error, %{status: 404, message: "Account or transaction not found."}}
     end
+  end
+
+
+  defp reply_success(socket, transaction, account, action) do
+    {:ok, updated_account} = Account.calculate_balance(account)
+    rendered_account =
+      Phoenix.View.render(LeatherWeb.AccountView,
+                          "account.json",
+                          %{account: updated_account})
+    rendered_transaction =
+      Phoenix.View.render(LeatherWeb.TransactionView,
+                          "transaction.json",
+                          %{transaction: transaction})
+    broadcast! socket, "account_updated", rendered_account
+    broadcast! socket, action, rendered_transaction
+    {:reply, :ok, socket}
   end
 end

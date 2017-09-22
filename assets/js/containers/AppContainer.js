@@ -7,9 +7,14 @@ import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
 import { selectChannelByName } from '../selectors/channels';
-import { setAccounts, setActiveAccount } from '../actions/accounts';
+import {
+  accountAdded,
+  setAccounts,
+  setActiveAccount,
+} from '../actions/accounts';
 
 const mapDispatchToProps = {
+  accountAdded,
   initChannel,
   setAccounts,
   setActiveAccount,
@@ -31,6 +36,7 @@ class AppContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
+      accountAdded: PropTypes.func,
       accountId: PropTypes.number,
       accounts: PropTypes.instanceOf(Immutable.List),
       children: PropTypes.object,
@@ -54,12 +60,15 @@ class AppContainer extends Component {
     const channel = props.channel;
 
     if (!channel) {
-      this.props.initChannel('accounts');
+      props.initChannel('accounts');
     }
 
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', ({ accounts }) => {
-        this.props.setAccounts(accounts);
+        props.setAccounts(accounts);
+      });
+      channel.on('account_added', account => {
+        props.accountAdded(account);
       });
     }
   }

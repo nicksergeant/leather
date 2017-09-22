@@ -54,7 +54,7 @@ class BudgetsContainer extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`budgets:${account.get('id')}`);
+      props.initChannel(`budgets:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {

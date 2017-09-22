@@ -36,7 +36,8 @@ defmodule LeatherWeb.AccountsChannel do
           Phoenix.View.render(LeatherWeb.AccountView,
                               "account.json",
                               %{account: account})
-        {:reply, {:ok, rendered_account}, socket}
+        broadcast! socket, "account_added", rendered_account
+        {:reply, :ok, socket}
 
       {:error, changeset} ->
         {:reply, {:error, %{errors: changeset}}, socket}

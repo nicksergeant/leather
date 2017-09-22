@@ -1,15 +1,16 @@
 import actionTypes from '../actions/actionTypes';
 
+export const accountAdded = payload => {
+  return {
+    payload,
+    type: actionTypes.ACCOUNT_ADDED,
+  };
+};
+
 export const addAccount = (channel, payload) => dispatch => {
   dispatch({ type: actionTypes.ADD_ACCOUNT_REQUEST });
   channel
     .push('new_account', payload)
-    .receive('ok', response => {
-      dispatch({
-        response,
-        type: actionTypes.ADD_ACCOUNT_SUCCESS,
-      });
-    })
     .receive('error', () => {
       dispatch({ type: actionTypes.ADD_ACCOUNT_FAILURE });
     });

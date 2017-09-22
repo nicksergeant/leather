@@ -54,7 +54,7 @@ class StashesContainer extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`stashes:${account.get('id')}`);
+      props.initChannel(`stashes:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {

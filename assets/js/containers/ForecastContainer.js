@@ -54,7 +54,7 @@ class ForecastContainer extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`forecast:${account.get('id')}`);
+      props.initChannel(`forecast:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {

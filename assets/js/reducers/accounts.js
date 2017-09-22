@@ -3,11 +3,11 @@ import actionTypes from '../actions/actionTypes';
 
 export const accounts = (
   state = Immutable.List(),
-  { type, payload, response }
+  { type, payload }
 ) => {
   switch (type) {
-    case actionTypes.ADD_ACCOUNT_SUCCESS:
-      return state.push(Immutable.fromJS(response));
+    case actionTypes.ACCOUNT_ADDED:
+      return state.push(Immutable.fromJS(payload));
     case actionTypes.SET_ACCOUNTS:
       return Immutable.fromJS(payload);
     default:

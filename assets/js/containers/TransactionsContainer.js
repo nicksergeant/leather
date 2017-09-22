@@ -11,18 +11,22 @@ import { selectTransactionsForActiveAccount } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
 import {
   addTransaction,
+  addTransactions,
   saveTransaction,
-  setTransactions,
+  transactionAdded,
+  transactionUpdated,
   updateTransactionAmount,
   updateTransactionName,
 } from '../actions/transactions';
 
 const mapDispatchToProps = {
   addTransaction,
+  addTransactions,
   initChannel,
   saveTransaction,
   setActivePanel,
-  setTransactions,
+  transactionAdded,
+  transactionUpdated,
   updateTransactionAmount,
   updateTransactionName,
 };
@@ -47,11 +51,13 @@ class TransactionsContainer extends Component {
       account: PropTypes.instanceOf(Immutable.Map),
       activePanel: PropTypes.string,
       addTransaction: PropTypes.func,
+      addTransactions: PropTypes.func,
       channel: PropTypes.object,
       initChannel: PropTypes.func,
       saveTransaction: PropTypes.func,
       setActivePanel: PropTypes.func,
-      setTransactions: PropTypes.func,
+      transactionAdded: PropTypes.func,
+      transactionUpdated: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
       updateTransactionAmount: PropTypes.func,
       updateTransactionName: PropTypes.func,
@@ -83,7 +89,7 @@ class TransactionsContainer extends Component {
   createTransaction() {
     this.props.addTransaction(this.props.channel, {
       amount: 112,
-      name: 'Test Transaction Name',
+      name: `Test Transaction Name Account #${this.props.account.get('id')}`,
       official_name: 'Official name',
       type: 'debit',
     });
@@ -93,12 +99,18 @@ class TransactionsContainer extends Component {
     const { account, channel } = props;
 
     if (!channel && account && account.get('id')) {
-      this.props.initChannel(`transactions:${account.get('id')}`);
+      props.initChannel(`transactions:${account.get('id')}`);
     }
 
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', ({ transactions }) => {
-        this.props.setTransactions(transactions);
+        props.addTransactions(transactions);
+      });
+      channel.on('transaction_added', transaction => {
+        props.transactionAdded(transaction);
+      });
+      channel.on('transaction_updated', transaction => {
+        props.transactionUpdated(transaction);
       });
     }
   }
