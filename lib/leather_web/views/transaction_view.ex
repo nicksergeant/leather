@@ -7,6 +7,7 @@ defmodule LeatherWeb.TransactionView do
     %{
       account_id: transaction.account_id,
       amount: transaction.amount,
+      category: transaction.category,
       id: transaction.id,
       name: transaction.name,
       type: transaction.type,

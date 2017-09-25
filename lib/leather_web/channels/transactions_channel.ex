@@ -51,7 +51,11 @@ defmodule LeatherWeb.TransactionsChannel do
     transaction =
       Repo.get_by(Transaction, %{id: params["id"], account_id: account.id})
     if account && transaction do
-      change = %{amount: params["amount"], name: params["name"]}
+      change = %{
+        amount: params["amount"],
+        category: params["category"],
+        name: params["name"],
+      }
       changeset = Transaction.changeset(transaction, change)
       case Repo.update(changeset) do
         {:ok, transaction} ->

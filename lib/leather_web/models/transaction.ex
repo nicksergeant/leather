@@ -9,11 +9,12 @@ defmodule Leather.Transaction do
 
   schema "transactions" do
     field :amount, :integer
+    field :category, :string
+    field :meta, :map
     field :name, :string
     field :official_name, :string
-    field :type, :string
     field :source, :string
-    field :meta, :map
+    field :type, :string
     timestamps()
     belongs_to :account, Leather.Account
   end
@@ -21,7 +22,8 @@ defmodule Leather.Transaction do
   @doc false
   def changeset(%Transaction{} = transaction, attrs) do
     transaction
-    |> cast(attrs, [:name, :official_name, :type, :amount, :source, :meta])
-    |> validate_required([:name, :official_name, :type, :amount])
+    |> cast(attrs,
+            [:amount, :category, :meta, :name, :official_name, :source, :type])
+    |> validate_required([:amount, :name, :official_name, :type])
   end
 end

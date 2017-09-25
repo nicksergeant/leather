@@ -17,6 +17,15 @@ export const transactions = (
         }
         return transaction;
       });
+    case actionTypes.UPDATE_TRANSACTION_CATEGORY:
+      return state.map(transaction => {
+        if (transaction.get('id') === payload.transactionId) {
+          return transaction.merge({
+            category: payload.category,
+          });
+        }
+        return transaction;
+      });
     case actionTypes.UPDATE_TRANSACTION_NAME:
       return state.map(transaction => {
         if (transaction.get('id') === payload.transactionId) {

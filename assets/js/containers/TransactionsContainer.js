@@ -17,6 +17,7 @@ import {
   transactionAdded,
   transactionUpdated,
   updateTransactionAmount,
+  updateTransactionCategory,
   updateTransactionName,
 } from '../actions/transactions';
 
@@ -30,6 +31,7 @@ const mapDispatchToProps = {
   transactionAdded,
   transactionUpdated,
   updateTransactionAmount,
+  updateTransactionCategory,
   updateTransactionName,
 };
 
@@ -63,6 +65,7 @@ class TransactionsContainer extends Component {
       transactionUpdated: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
       updateTransactionAmount: PropTypes.func,
+      updateTransactionCategory: PropTypes.func,
       updateTransactionName: PropTypes.func,
     };
   }
@@ -136,6 +139,7 @@ class TransactionsContainer extends Component {
         key={transaction.get('id')}
         onSaveTransaction={this.onSaveTransaction}
         onUpdateAmount={this.props.updateTransactionAmount}
+        onUpdateCategory={this.props.updateTransactionCategory}
         onUpdateName={this.props.updateTransactionName}
         transaction={transaction}
       />
