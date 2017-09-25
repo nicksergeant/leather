@@ -8,6 +8,13 @@ export const accounts = (
   switch (type) {
     case actionTypes.ACCOUNT_ADDED:
       return state.push(Immutable.fromJS(payload));
+    case actionTypes.ACCOUNT_UPDATED:
+      return state.map(account => {
+        if (account.get('id') === payload.id) {
+          return account.merge(payload);
+        }
+        return account;
+      });
     case actionTypes.SET_ACCOUNTS:
       return Immutable.fromJS(payload);
     default:

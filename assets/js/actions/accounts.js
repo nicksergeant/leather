@@ -7,6 +7,13 @@ export const accountAdded = payload => {
   };
 };
 
+export const accountUpdated = payload => {
+  return {
+    payload,
+    type: actionTypes.ACCOUNT_UPDATED,
+  };
+};
+
 export const addAccount = (channel, payload) => dispatch => {
   dispatch({ type: actionTypes.ADD_ACCOUNT_REQUEST });
   channel

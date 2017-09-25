@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Transaction from '../components/Transaction.js';
 import { connect } from 'react-redux';
+import { accountUpdated } from '../actions/accounts';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
 import { selectActivePanel } from '../selectors/panels';
@@ -20,6 +21,7 @@ import {
 } from '../actions/transactions';
 
 const mapDispatchToProps = {
+  accountUpdated,
   addTransaction,
   addTransactions,
   initChannel,
@@ -49,6 +51,7 @@ class TransactionsContainer extends Component {
   static get propTypes() {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
+      accountUpdated: PropTypes.func,
       activePanel: PropTypes.string,
       addTransaction: PropTypes.func,
       addTransactions: PropTypes.func,
@@ -105,6 +108,9 @@ class TransactionsContainer extends Component {
     if (channel && channel.state === 'closed') {
       channel.join().receive('ok', ({ transactions }) => {
         props.addTransactions(transactions);
+      });
+      channel.on('account_updated', acc => {
+        props.accountUpdated(acc);
       });
       channel.on('transaction_added', transaction => {
         props.transactionAdded(transaction);
