@@ -12,18 +12,54 @@ class Transaction extends Component {
     };
   }
 
+  constructor() {
+    super();
+    this.saveIfChanged = this.saveIfChanged.bind(this);
+    this.updateAmount = this.updateAmount.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.state = {
+      changed: false,
+    };
+  }
+
+  updateAmount(amount) {
+    this.setState({
+      changed: true,
+    });
+    this.props.onUpdateAmount({
+      amount: parseInt(amount, 10),
+      transactionId: this.props.transaction.get('id'),
+    });
+  }
+
+  updateName(name) {
+    this.setState({
+      changed: true,
+    });
+    this.props.onUpdateName({
+      name,
+      transactionId: this.props.transaction.get('id'),
+    });
+  }
+
+  saveIfChanged() {
+    if (this.state.changed) {
+      this.setState({
+        changed: false,
+      });
+      this.props.onSaveTransaction(this.props.transaction);
+    }
+  }
+
   render() {
     return (
       <tr className="transaction">
         <td>09/13/2017</td>
         <td>
           <input
-            onBlur={() => this.props.onSaveTransaction(this.props.transaction)}
+            onBlur={() => this.saveIfChanged()}
             onChange={e => {
-              this.props.onUpdateName({
-                name: e.target.value,
-                transactionId: this.props.transaction.get('id'),
-              });
+              this.updateName(e.target.value);
             }}
             type="text"
             value={this.props.transaction.get('name')}
@@ -32,12 +68,9 @@ class Transaction extends Component {
         <td>Automotive</td>
         <td>
           <input
-            onBlur={() => this.props.onSaveTransaction(this.props.transaction)}
+            onBlur={() => this.saveIfChanged()}
             onChange={e => {
-              this.props.onUpdateAmount({
-                amount: parseInt(e.target.value, 10),
-                transactionId: this.props.transaction.get('id'),
-              });
+              this.updateAmount(e.target.value);
             }}
             type="text"
             value={this.props.transaction.get('amount')}

@@ -36,7 +36,12 @@ defmodule Leather.Account do
       Transaction
       |> Ecto.Query.where(account_id: ^(account.id))
       |> Repo.all()
-    new_balance = 10
+    new_balance =
+      Enum.reduce(transactions,
+                  0,
+                  fn transaction, acc ->
+                    transaction.amount + acc
+                  end)
     changeset = Account.changeset(account, %{balance_current: new_balance})
     Repo.update changeset
   end
