@@ -10,18 +10,16 @@ defmodule Leather.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
+      deps: deps()
     ]
   end
-
 
   def application do
     [
       mod: {Leather.Application, []},
-      extra_applications: [:sentry, :logger, :runtime_tools],
+      extra_applications: [:sentry, :logger, :runtime_tools]
     ]
   end
-
 
   defp elixirc_paths(:test) do
     ["lib", "test/support"]
@@ -30,7 +28,6 @@ defmodule Leather.Mixfile do
   defp elixirc_paths(_) do
     ["lib"]
   end
-
 
   defp deps do
     [
@@ -47,16 +44,15 @@ defmodule Leather.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:plaidex, "~> 0.1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:sentry, "~> 6.0.0"},
+      {:sentry, "~> 6.0.0"}
     ]
   end
-
 
   defp aliases do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

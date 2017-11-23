@@ -3,7 +3,7 @@ defmodule Leather.Repo.Migrations.AddCategoryToTransaction do
 
   def change do
     alter table(:transactions) do
-      add :category, :string
+      add(:category, :string)
     end
   end
 end

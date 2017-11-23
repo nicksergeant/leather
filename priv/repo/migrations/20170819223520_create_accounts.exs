@@ -3,12 +3,12 @@ defmodule Leather.Repo.Migrations.CreateAccounts do
 
   def change do
     create table(:accounts) do
-      add :name, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add(:name, :string)
+      add(:user_id, references(:users, on_delete: :nothing))
 
       timestamps()
     end
 
-    create index(:accounts, [:user_id])
+    create(index(:accounts, [:user_id]))
   end
 end

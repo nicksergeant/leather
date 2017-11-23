@@ -12,11 +12,14 @@ defmodule LeatherWeb.ChannelCase do
       @endpoint LeatherWeb.Endpoint
     end
   end
+
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Leather.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode Leather.Repo, {:shared, self()}
+      Ecto.Adapters.SQL.Sandbox.mode(Leather.Repo, {:shared, self()})
     end
+
     :ok
   end
 end

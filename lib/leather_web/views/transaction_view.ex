@@ -10,7 +10,7 @@ defmodule LeatherWeb.TransactionView do
       category: transaction.category,
       id: transaction.id,
       name: transaction.name,
-      type: transaction.type,
+      type: transaction.type
     }
   end
 end

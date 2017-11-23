@@ -9,7 +9,7 @@ defmodule LeatherWeb.AccountView do
       balance_current: account.balance_current,
       balance_limit: account.balance_limit,
       id: account.id,
-      name: account.name,
+      name: account.name
     }
   end
 end
