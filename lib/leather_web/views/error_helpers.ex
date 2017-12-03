@@ -5,12 +5,10 @@ defmodule LeatherWeb.ErrorHelpers do
 
   @doc "Generates tag for inlined form input errors."
   def error_tag(form, field) do
-    Enum.map Keyword.get_values(form.errors, field),
-             fn error ->
-               content_tag(:p, translate_error(error), class: "help is-danger")
-             end
+    Enum.map(Keyword.get_values(form.errors, field), fn error ->
+      content_tag(:p, translate_error(error), class: "help is-danger")
+    end)
   end
-
 
   @doc "Generates input class based on whether the field has an error or not."
   def input_class(form, field) do
@@ -22,7 +20,6 @@ defmodule LeatherWeb.ErrorHelpers do
         "input"
     end
   end
-
 
   @doc "Translates an error message using gettext."
   def translate_error({msg, opts}) do
@@ -40,9 +37,9 @@ defmodule LeatherWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext LeatherWeb.Gettext, "errors", msg, msg, count, opts
+      Gettext.dngettext(LeatherWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext LeatherWeb.Gettext, "errors", msg, opts
+      Gettext.dgettext(LeatherWeb.Gettext, "errors", msg, opts)
     end
   end
 end

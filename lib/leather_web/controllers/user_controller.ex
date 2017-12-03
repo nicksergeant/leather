@@ -3,21 +3,22 @@ defmodule LeatherWeb.UserController do
 
   use LeatherWeb, :controller
 
-  plug :forbid_authenticated_users
-       when action in [:login, :login_form, :signup, :signup_form]
+  plug(
+    :forbid_authenticated_users
+    when action in [:login, :login_form, :signup, :signup_form]
+  )
+
   alias Leather.Repo
   alias Leather.User
 
   def login_form(conn, _params) do
-    render conn, "login.html"
+    render(conn, "login.html")
   end
-
 
   def signup_form(conn, _params) do
     changeset = User.registration_changeset(%User{})
-    render conn, "signup.html", changeset: changeset
+    render(conn, "signup.html", changeset: changeset)
   end
-
 
   def login(conn, %{"session" => %{"email" => email, "password" => pass}}) do
     case Leather.Auth.login_by_email_and_pass(conn, email, pass, repo: Repo) do
@@ -32,16 +33,15 @@ defmodule LeatherWeb.UserController do
     end
   end
 
-
   def logout(conn, _) do
     conn
     |> Leather.Auth.logout()
     |> redirect(to: "/")
   end
 
-
   def signup(conn, %{"user" => user_params}) do
     changeset = User.registration_changeset(%User{}, user_params)
+
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
@@ -50,10 +50,9 @@ defmodule LeatherWeb.UserController do
         |> redirect(to: "/")
 
       {:error, changeset} ->
-        render conn, "signup.html", changeset: changeset
+        render(conn, "signup.html", changeset: changeset)
     end
   end
-
 
   defp require_authentication(conn, _opts) do
     if conn.assigns.current_user do
@@ -65,7 +64,6 @@ defmodule LeatherWeb.UserController do
       |> halt()
     end
   end
-
 
   defp forbid_authenticated_users(conn, _opts) do
     if conn.assigns.current_user do

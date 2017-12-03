@@ -11,7 +11,6 @@ defmodule LeatherWeb do
     end
   end
 
-
   def view do
     quote do
       use Phoenix.View, root: "lib/leather_web/templates", namespace: LeatherWeb
@@ -26,7 +25,6 @@ defmodule LeatherWeb do
     end
   end
 
-
   def router do
     quote do
       use Phoenix.Router
@@ -36,7 +34,6 @@ defmodule LeatherWeb do
     end
   end
 
-
   def channel do
     quote do
       use Phoenix.Channel
@@ -45,9 +42,8 @@ defmodule LeatherWeb do
     end
   end
 
-
   @doc "When used, dispatch to the appropriate controller/view/etc.\n"
   defmacro __using__(which) when is_atom(which) do
-    apply __MODULE__, which, []
+    apply(__MODULE__, which, [])
   end
 end

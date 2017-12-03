@@ -8,12 +8,12 @@ defmodule Leather.User do
   use Ecto.Schema
 
   schema "users" do
-    field :password, :string, virtual: true
-    field :password_hash, :string
-    field :email, :string
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
+    field(:email, :string)
     timestamps()
-    has_many :accounts, Leather.Account
-    has_many :plaid_accounts, Leather.Plaid.Account
+    has_many(:accounts, Leather.Account)
+    has_many(:plaid_accounts, Leather.Plaid.Account)
   end
 
   @doc false
@@ -28,11 +28,10 @@ defmodule Leather.User do
     |> put_pass_hash()
   end
 
-
   defp put_pass_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass)
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
 
       _ ->
         changeset
