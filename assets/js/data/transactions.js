@@ -4,6 +4,7 @@ export const centsToDollars = (cents) => {
 }
 
 export const dollarsToCents = (dollars) => {
+  dollars = parseFloat(dollars).toFixed(2);
   return parseFloat(dollars * 100);
 }
 
