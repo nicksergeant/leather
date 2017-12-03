@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { centsToDollars } from '../data/transactions';
 import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
 
 const mapDispatchToProps = {};
@@ -41,7 +42,7 @@ class AccountListContainer extends Component {
             <span
               style={{ color: '#9b9b9b', display: 'block', marginTop: '2px' }}
             >
-              ${account.get('balance_current')}
+              ${centsToDollars(account.get('balance_current'))}
             </span>
           </Link>
         </li>

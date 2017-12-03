@@ -29,7 +29,7 @@ class Transaction extends Component {
       changed: true,
     });
     this.props.onUpdateAmount({
-      amount: parseInt(amount, 10),
+      amount,
       transactionId: this.props.transaction.get('id'),
     });
   }

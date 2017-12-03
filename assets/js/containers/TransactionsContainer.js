@@ -2,6 +2,7 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Transaction from '../components/Transaction.js';
+import { centsToDollars, dollarsToCents, stringIsNumber } from '../data/transactions';
 import { connect } from 'react-redux';
 import { accountUpdated } from '../actions/accounts';
 import { initChannel } from '../actions/channels';
@@ -94,7 +95,7 @@ class TransactionsContainer extends Component {
 
   createTransaction() {
     this.props.addTransaction(this.props.channel, {
-      amount: 112,
+      amount: 0,
       name: `Test Transaction Name Account #${this.props.account.get('id')}`,
       official_name: 'Official name',
       type: 'debit',
@@ -125,8 +126,10 @@ class TransactionsContainer extends Component {
   }
 
   onSaveTransaction(transaction) {
-    // TODO: don't save if nothing has changed.
-    this.props.saveTransaction(this.props.channel, transaction);
+    if (stringIsNumber(transaction.get('amount'))) {
+      const updatedTransaction = transaction.set('amount', dollarsToCents(transaction.get('amount')));
+      this.props.saveTransaction(this.props.channel, updatedTransaction);
+    }
   }
 
   render() {

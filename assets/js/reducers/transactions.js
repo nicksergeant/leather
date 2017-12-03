@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import actionTypes from '../actions/actionTypes';
+import { centsToDollars } from '../data/transactions';
 
 export const transactions = (
   state = Immutable.List(),
@@ -7,6 +8,12 @@ export const transactions = (
 ) => {
   switch (type) {
     case actionTypes.ADD_TRANSACTIONS:
+      payload = payload.map((transaction) => {
+        return {
+          ...transaction,
+          amount: centsToDollars(transaction.amount)
+        }
+      });
       return state.push(...Immutable.fromJS(payload));
     case actionTypes.UPDATE_TRANSACTION_AMOUNT:
       return state.map(transaction => {
@@ -40,7 +47,10 @@ export const transactions = (
     case actionTypes.TRANSACTION_UPDATED:
       return state.map(transaction => {
         if (transaction.get('id') === payload.id) {
-          return transaction.merge(payload);
+          return transaction.merge({
+            ...payload,
+            amount: centsToDollars(payload.amount)
+          });
         }
         return transaction;
       });
