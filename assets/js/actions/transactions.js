@@ -20,6 +20,15 @@ export const addTransactions = payload => {
   };
 };
 
+export const deleteTransaction = (channel, payload) => dispatch => {
+  dispatch({ type: actionTypes.DELETE_TRANSACTION_REQUEST });
+  channel
+    .push('delete_transaction', payload)
+    .receive('error', () => {
+      dispatch({ type: actionTypes.DELETE_TRANSACTION_FAILURE });
+    });
+};
+
 export const saveTransaction = (channel, payload) => dispatch => {
   dispatch({ type: actionTypes.SAVE_TRANSACTION_REQUEST });
   channel
@@ -33,6 +42,13 @@ export const transactionAdded = payload => {
   return {
     payload,
     type: actionTypes.TRANSACTION_ADDED,
+  };
+};
+
+export const transactionDeleted = payload => {
+  return {
+    payload,
+    type: actionTypes.TRANSACTION_DELETED,
   };
 };
 

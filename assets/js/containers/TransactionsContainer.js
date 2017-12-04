@@ -14,8 +14,10 @@ import { setActivePanel } from '../actions/panels';
 import {
   addTransaction,
   addTransactions,
+  deleteTransaction,
   saveTransaction,
   transactionAdded,
+  transactionDeleted,
   transactionUpdated,
   updateTransactionAmount,
   updateTransactionCategory,
@@ -26,10 +28,12 @@ const mapDispatchToProps = {
   accountUpdated,
   addTransaction,
   addTransactions,
+  deleteTransaction,
   initChannel,
   saveTransaction,
   setActivePanel,
   transactionAdded,
+  transactionDeleted,
   transactionUpdated,
   updateTransactionAmount,
   updateTransactionCategory,
@@ -58,11 +62,13 @@ class TransactionsContainer extends Component {
       activePanel: PropTypes.string,
       addTransaction: PropTypes.func,
       addTransactions: PropTypes.func,
+      deleteTransaction: PropTypes.func,
       channel: PropTypes.object,
       initChannel: PropTypes.func,
       saveTransaction: PropTypes.func,
       setActivePanel: PropTypes.func,
       transactionAdded: PropTypes.func,
+      transactionDeleted: PropTypes.func,
       transactionUpdated: PropTypes.func,
       transactions: PropTypes.instanceOf(Immutable.List),
       updateTransactionAmount: PropTypes.func,
@@ -74,6 +80,7 @@ class TransactionsContainer extends Component {
   constructor(props) {
     super(props);
     this.createTransaction = this.createTransaction.bind(this);
+    this.onDeleteTransaction = this.onDeleteTransaction.bind(this);
     this.onSaveTransaction = this.onSaveTransaction.bind(this);
   }
 
@@ -119,10 +126,17 @@ class TransactionsContainer extends Component {
       channel.on('transaction_added', transaction => {
         props.transactionAdded(transaction);
       });
+      channel.on('transaction_deleted', transaction => {
+        props.transactionDeleted(transaction);
+      });
       channel.on('transaction_updated', transaction => {
         props.transactionUpdated(transaction);
       });
     }
+  }
+
+  onDeleteTransaction(transaction) {
+    this.props.deleteTransaction(this.props.channel, transaction);
   }
 
   onSaveTransaction(transaction) {
@@ -140,6 +154,7 @@ class TransactionsContainer extends Component {
     const transactions = this.props.transactions.map(transaction => (
       <Transaction
         key={transaction.get('id')}
+        onDeleteTransaction={this.onDeleteTransaction}
         onSaveTransaction={this.onSaveTransaction}
         onUpdateAmount={this.props.updateTransactionAmount}
         onUpdateCategory={this.props.updateTransactionCategory}
@@ -197,6 +212,7 @@ class TransactionsContainer extends Component {
               <th>Payee</th>
               <th>Category</th>
               <th>Amount</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>{transactions}</tbody>

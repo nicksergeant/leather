@@ -28,6 +28,25 @@ defmodule LeatherWeb.TransactionsChannel do
     end
   end
 
+  def handle_in("delete_transaction", params, socket) do
+    account = socket.assigns.account
+    transaction = Repo.get_by(Transaction, %{id: params["id"], account_id: account.id})
+
+    if account && transaction do
+      changeset = Transaction.changeset(transaction, %{})
+
+      case Repo.delete(changeset) do
+        {:ok, transaction} ->
+          reply_success(socket, transaction, account, "transaction_deleted")
+
+        {:error, changeset} ->
+          {:reply, {:error, %{errors: changeset}}, socket}
+      end
+    else
+      {:error, %{status: 404, message: "Account or transaction not found."}}
+    end
+  end
+
   def handle_in("new_transaction", params, socket) do
     account = socket.assigns.account
 

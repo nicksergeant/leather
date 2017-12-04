@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 class Transaction extends Component {
   static get propTypes() {
     return {
+      onDeleteTransaction: PropTypes.func.isRequired,
       onSaveTransaction: PropTypes.func.isRequired,
       onUpdateAmount: PropTypes.func.isRequired,
       onUpdateCategory: PropTypes.func.isRequired,
@@ -15,6 +16,7 @@ class Transaction extends Component {
 
   constructor() {
     super();
+    this.deleteTransaction = this.deleteTransaction.bind(this);
     this.saveIfChanged = this.saveIfChanged.bind(this);
     this.updateAmount = this.updateAmount.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
@@ -22,6 +24,10 @@ class Transaction extends Component {
     this.state = {
       changed: false,
     };
+  }
+
+  deleteTransaction() {
+    this.props.onDeleteTransaction(this.props.transaction);
   }
 
   updateAmount(amount) {
@@ -96,6 +102,9 @@ class Transaction extends Component {
             type="text"
             value={this.props.transaction.get('amount')}
           />
+        </td>
+        <td>
+          <a onClick={this.deleteTransaction}>Delete</a>
         </td>
       </tr>
     );

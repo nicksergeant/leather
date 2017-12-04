@@ -44,6 +44,10 @@ export const transactions = (
       });
     case actionTypes.TRANSACTION_ADDED:
       return state.push(Immutable.fromJS(payload));
+    case actionTypes.TRANSACTION_DELETED:
+      console.log('in reducer for delete')
+      // TODO: Delete
+      return state;
     case actionTypes.TRANSACTION_UPDATED:
       return state.map(transaction => {
         if (transaction.get('id') === payload.id) {
