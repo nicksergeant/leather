@@ -72,7 +72,9 @@ class Transaction extends Component {
   render() {
     return (
       <tr className="transaction">
-        <td>09/13/2017</td>
+        <td>
+          {this.props.transaction.get('date')}
+        </td>
         <td>
           <input
             onBlur={() => this.saveIfChanged()}

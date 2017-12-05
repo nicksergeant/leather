@@ -103,6 +103,7 @@ class TransactionsContainer extends Component {
   createTransaction() {
     this.props.addTransaction(this.props.channel, {
       amount: 0,
+      date: '1969-02-02',
       name: `Test Transaction Name Account #${this.props.account.get('id')}`,
       official_name: 'Official name',
       type: 'debit',
