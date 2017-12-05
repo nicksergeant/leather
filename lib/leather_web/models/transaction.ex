@@ -10,6 +10,7 @@ defmodule Leather.Transaction do
   schema "transactions" do
     field(:amount, :integer)
     field(:category, :string)
+    field(:date, :date)
     field(:meta, :map)
     field(:name, :string)
     field(:official_name, :string)
