@@ -28,7 +28,9 @@ class AccountListContainer extends Component {
     };
   }
 
-  onDeleteAccount(account) {
+  onDeleteAccount(account, e) {
+    e.stopPropagation();
+    e.preventDefault();
     this.props.deleteAccount(this.props.channel, account);
   }
 
