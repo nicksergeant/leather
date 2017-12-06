@@ -8,6 +8,10 @@ export const accounts = (
   switch (type) {
     case actionTypes.ACCOUNT_ADDED:
       return state.push(Immutable.fromJS(payload));
+    case actionTypes.ACCOUNT_DELETED:
+      return state.filter((account) => {
+        return account.get('id') !== payload.id;
+      });
     case actionTypes.ACCOUNT_UPDATED:
       return state.map(account => {
         if (account.get('id') === payload.id) {

@@ -9,6 +9,7 @@ import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
 import { selectChannelByName } from '../selectors/channels';
 import {
   accountAdded,
+  accountDeleted,
   accountUpdated,
   setAccounts,
   setActiveAccount,
@@ -16,6 +17,7 @@ import {
 
 const mapDispatchToProps = {
   accountAdded,
+  accountDeleted,
   accountUpdated,
   initChannel,
   setAccounts,
@@ -39,6 +41,7 @@ class AppContainer extends Component {
     return {
       account: PropTypes.instanceOf(Immutable.Map),
       accountAdded: PropTypes.func,
+      accountDeleted: PropTypes.func,
       accountUpdated: PropTypes.func,
       accountId: PropTypes.number,
       accounts: PropTypes.instanceOf(Immutable.List),
@@ -72,6 +75,9 @@ class AppContainer extends Component {
       });
       channel.on('account_added', account => {
         props.accountAdded(account);
+      });
+      channel.on('account_deleted', account => {
+        props.accountDeleted(account);
       });
       channel.on('account_updated', account => {
         props.accountUpdated(account);

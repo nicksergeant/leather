@@ -47,7 +47,7 @@ class SidebarContainer extends Component {
           </span>
           <span>Create new account</span>
         </button>
-        <AccountListContainer />
+        <AccountListContainer channel={this.props.channel} />
       </aside>
     );
   }

@@ -7,6 +7,13 @@ export const accountAdded = payload => {
   };
 };
 
+export const accountDeleted = payload => {
+  return {
+    payload,
+    type: actionTypes.ACCOUNT_DELETED,
+  };
+};
+
 export const accountUpdated = payload => {
   return {
     payload,
@@ -20,6 +27,15 @@ export const addAccount = (channel, payload) => dispatch => {
     .push('new_account', payload)
     .receive('error', () => {
       dispatch({ type: actionTypes.ADD_ACCOUNT_FAILURE });
+    });
+};
+
+export const deleteAccount = (channel, payload) => dispatch => {
+  dispatch({ type: actionTypes.DELETE_ACCOUNT_REQUEST });
+  channel
+    .push('delete_account', payload)
+    .receive('error', () => {
+      dispatch({ type: actionTypes.DELETE_ACCOUNT_FAILURE });
     });
 };
 
