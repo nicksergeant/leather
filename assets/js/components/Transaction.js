@@ -9,6 +9,7 @@ class Transaction extends Component {
       onSaveTransaction: PropTypes.func.isRequired,
       onUpdateAmount: PropTypes.func.isRequired,
       onUpdateCategory: PropTypes.func.isRequired,
+      onUpdateDate: PropTypes.func.isRequired,
       onUpdateName: PropTypes.func.isRequired,
       transaction: PropTypes.instanceOf(Immutable.Map),
     };
@@ -20,6 +21,7 @@ class Transaction extends Component {
     this.saveIfChanged = this.saveIfChanged.bind(this);
     this.updateAmount = this.updateAmount.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
+    this.updateDate = this.updateDate.bind(this);
     this.updateName = this.updateName.bind(this);
     this.state = {
       changed: false,
@@ -50,6 +52,16 @@ class Transaction extends Component {
     });
   }
 
+  updateDate(date) {
+    this.setState({
+      changed: true,
+    });
+    this.props.onUpdateDate({
+      date,
+      transactionId: this.props.transaction.get('id'),
+    });
+  }
+
   updateName(name) {
     this.setState({
       changed: true,
@@ -73,7 +85,14 @@ class Transaction extends Component {
     return (
       <tr className="transaction">
         <td>
-          {this.props.transaction.get('date')}
+          <input
+            onBlur={() => this.saveIfChanged()}
+            onChange={e => {
+              this.updateDate(e.target.value);
+            }}
+            type="text"
+            value={this.props.transaction.get('date')}
+          />
         </td>
         <td>
           <input

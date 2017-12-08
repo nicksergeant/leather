@@ -76,6 +76,7 @@ defmodule LeatherWeb.TransactionsChannel do
       change = %{
         amount: params["amount"],
         category: params["category"],
+        date: params["date"],
         name: params["name"]
       }
 
