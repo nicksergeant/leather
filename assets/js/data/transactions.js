@@ -17,7 +17,7 @@ export const dollarsToCents = dollars => {
   dollars = dollars.replace(',', '').replace('$', '');
   dollars = parseFloat(dollars).toFixed(2);
 
-  const result = parseFloat(dollars * 100);
+  const result = parseFloat(dollars * 100).toFixed(0);
 
   // TODO: Throw an error instead of 0.
   if (result > 999999999 || result < -999999999) {
