@@ -2,7 +2,6 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Transaction from '../components/Transaction.js';
-import { centsToDollars, dollarsToCents, stringIsNumber } from '../data/transactions';
 import { connect } from 'react-redux';
 import { accountUpdated } from '../actions/accounts';
 import { initChannel } from '../actions/channels';
@@ -11,6 +10,11 @@ import { selectActivePanel } from '../selectors/panels';
 import { selectChannelByName } from '../selectors/channels';
 import { selectTransactionsForActiveAccount } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
+import {
+  centsToDollars,
+  dollarsToCents,
+  stringIsNumber,
+} from '../data/transactions';
 import {
   addTransaction,
   addTransactions,
@@ -142,7 +146,10 @@ class TransactionsContainer extends Component {
 
   onSaveTransaction(transaction) {
     if (stringIsNumber(transaction.get('amount'))) {
-      const updatedTransaction = transaction.set('amount', dollarsToCents(transaction.get('amount')));
+      const updatedTransaction = transaction.set(
+        'amount',
+        dollarsToCents(transaction.get('amount'))
+      );
       this.props.saveTransaction(this.props.channel, updatedTransaction);
     }
   }
