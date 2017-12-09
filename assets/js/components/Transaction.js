@@ -1,6 +1,8 @@
+import DatePicker from 'react-datepicker';
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import moment from 'moment';
 
 class Transaction extends Component {
   static get propTypes() {
@@ -57,7 +59,7 @@ class Transaction extends Component {
       changed: true,
     });
     this.props.onUpdateDate({
-      date,
+      date: date.format('YYYY-MM-DD'),
       transactionId: this.props.transaction.get('id'),
     });
   }
@@ -85,13 +87,10 @@ class Transaction extends Component {
     return (
       <tr className="transaction">
         <td>
-          <input
+          <DatePicker
             onBlur={() => this.saveIfChanged()}
-            onChange={e => {
-              this.updateDate(e.target.value);
-            }}
-            type="text"
-            value={this.props.transaction.get('date')}
+            onChange={this.updateDate}
+            selected={moment(this.props.transaction.get('date'))}
           />
         </td>
         <td>

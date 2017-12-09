@@ -19,8 +19,8 @@ config :leather, LeatherWeb.Endpoint,
     patterns: [
       ~r(priv/static/.*(js|css|png|jpeg|jpg|gif|svg\)$),
       ~r(priv/gettext/.*(po\)$),
-      ~r(lib/leather_web/views/.*(ex\)$),
-      ~r(lib/leather_web/templates/.*(eex\)$)
+      ~r(lib/leather_web/.*(ex\)$),
+      ~r(lib/leather_web/.*(eex\)$)
     ]
   ]
 

@@ -32,11 +32,14 @@ exports.config = {
   npm: {
     enabled: true,
     whitelist: [
+      'date-fns',
       'history',
+      'moment',
       'phoenix',
       'phoenix_html',
       'raven-js',
       'react',
+      'react-datepicker',
       'react-dom',
       'react-redux',
       'react-router',

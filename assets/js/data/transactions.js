@@ -1,3 +1,12 @@
+const inputToFloat = input => {
+  return parseFloat(
+    input
+      .toString()
+      .replace(/\,/g, '')
+      .replace(/\$/g, '')
+  );
+};
+
 export const formatCurrency = amount => {
   const formatter = new Intl.NumberFormat('en-US', {
     currency: 'USD',
@@ -14,8 +23,7 @@ export const centsToDollars = cents => {
 };
 
 export const dollarsToCents = dollars => {
-  dollars = dollars.replace(',', '').replace('$', '');
-  dollars = parseFloat(dollars).toFixed(2);
+  dollars = inputToFloat(dollars).toFixed(2);
 
   const result = parseFloat(dollars * 100).toFixed(0);
 
@@ -28,7 +36,6 @@ export const dollarsToCents = dollars => {
 };
 
 export const stringIsNumber = number => {
-  number = number.replace(',', '').replace('$', '');
-  number = parseFloat(number);
+  number = inputToFloat(number);
   return typeof number === 'number' && !Number.isNaN(number);
 };

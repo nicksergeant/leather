@@ -2,8 +2,9 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Transaction from '../components/Transaction.js';
-import { connect } from 'react-redux';
+import moment from 'moment';
 import { accountUpdated } from '../actions/accounts';
+import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
 import { selectActivePanel } from '../selectors/panels';
@@ -110,7 +111,7 @@ class TransactionsContainer extends Component {
   createTransaction() {
     this.props.addTransaction(this.props.channel, {
       amount: 0,
-      date: '1969-02-02',
+      date: moment().format('YYYY-MM-DD'),
       name: `Test Transaction Name Account #${this.props.account.get('id')}`,
       official_name: 'Official name',
       type: 'debit',
