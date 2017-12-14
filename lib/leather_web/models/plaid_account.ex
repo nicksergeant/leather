@@ -28,9 +28,9 @@ defmodule Leather.Plaid.Account do
   def changeset(model, params \\ :invalid) do
     model
     |> cast(
-         params,
-         ~w(user_id account_id plaid_account_id balance_available balance_current balance_limit name official_name type subtype mask)
-       )
+      params,
+      ~w(user_id account_id plaid_account_id balance_available balance_current balance_limit name official_name type subtype mask)
+    )
     |> validate_required([:user_id, :account_id, :name])
   end
 end
