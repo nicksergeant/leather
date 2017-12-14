@@ -34,7 +34,7 @@ defmodule Leather.Mixfile do
       {:bcrypt_elixir, "~> 0.12.1"},
       {:comeonin, "~> 4.0"},
       {:cowboy, "~> 1.0"},
-      {:dogma, "~> 0.1", [only: :dev]},
+      {:credo, "~> 0.8.10", only: [:dev, :test], runtime: false},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.2"},
