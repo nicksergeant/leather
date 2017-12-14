@@ -4,6 +4,9 @@ defmodule LeatherWeb.TransactionsChannel do
   alias Leather.Account
   alias Leather.Repo
   alias Leather.Transaction
+  alias LeatherWeb.AccountView
+  alias LeatherWeb.TransactionView
+  alias Phoenix.View
 
   use LeatherWeb, :channel
 
@@ -18,8 +21,7 @@ defmodule LeatherWeb.TransactionsChannel do
         |> Repo.all()
 
       resp = %{
-        transactions:
-          Phoenix.View.render_many(transactions, LeatherWeb.TransactionView, "transaction.json")
+        transactions: View.render_many(transactions, TransactionView, "transaction.json")
       }
 
       {:ok, resp, assign(socket, :account, account)}
@@ -97,11 +99,10 @@ defmodule LeatherWeb.TransactionsChannel do
   defp reply_success(socket, transaction, account, action) do
     {:ok, updated_account} = Account.calculate_balance(account)
 
-    rendered_account =
-      Phoenix.View.render(LeatherWeb.AccountView, "account.json", %{account: updated_account})
+    rendered_account = View.render(AccountView, "account.json", %{account: updated_account})
 
     rendered_transaction =
-      Phoenix.View.render(LeatherWeb.TransactionView, "transaction.json", %{
+      View.render(TransactionView, "transaction.json", %{
         transaction: transaction
       })
 
