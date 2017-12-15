@@ -4,12 +4,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { centsToDollars } from '../data/transactions';
 import { connect } from 'react-redux';
-import { deleteAccount } from '../actions/accounts';
-import { selectActiveAccount, selectAllAccountsSorted } from '../selectors/accounts';
+import {
+  selectActiveAccount,
+  selectAllAccountsSorted,
+} from '../selectors/accounts';
 
-const mapDispatchToProps = {
-  deleteAccount,
-};
+const mapDispatchToProps = {};
 
 const mapStateToProps = state => {
   return {
@@ -24,14 +24,7 @@ class AccountListContainer extends Component {
       accounts: PropTypes.instanceOf(Immutable.List),
       activeAccount: PropTypes.instanceOf(Immutable.Map),
       channel: PropTypes.object,
-      deleteAccount: PropTypes.func,
     };
-  }
-
-  onDeleteAccount(account, e) {
-    e.stopPropagation();
-    e.preventDefault();
-    this.props.deleteAccount(this.props.channel, account);
   }
 
   render() {
@@ -50,13 +43,6 @@ class AccountListContainer extends Component {
             to={`/${account.get('id')}/transactions`}
           >
             {account.get('name')} (#{account.get('id')})
-            <a
-              onClick={this.onDeleteAccount.bind(this, account)}
-              href=""
-              style={{ float: 'right', fontSize: '11px' }}
-            >
-              Delete
-            </a>
             <span
               style={{ color: '#9b9b9b', display: 'block', marginTop: '2px' }}
             >
