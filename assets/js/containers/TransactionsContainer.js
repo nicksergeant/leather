@@ -9,7 +9,7 @@ import { initChannel } from '../actions/channels';
 import { selectActiveAccount } from '../selectors/accounts';
 import { selectActivePanel } from '../selectors/panels';
 import { selectChannelByName } from '../selectors/channels';
-import { selectTransactionsForActiveAccount } from '../selectors/transactions';
+import { selectTransactionsForActiveAccountSorted } from '../selectors/transactions';
 import { setActivePanel } from '../actions/panels';
 import {
   centsToDollars,
@@ -56,7 +56,7 @@ const mapStateToProps = state => {
       ? selectChannelByName(state, `transactions:${account.get('id')}`)
       : null,
     transactions: account
-      ? selectTransactionsForActiveAccount(state)
+      ? selectTransactionsForActiveAccountSorted(state)
       : Immutable.List(),
   };
 };
@@ -112,8 +112,8 @@ class TransactionsContainer extends Component {
     this.props.addTransaction(this.props.channel, {
       amount: 0,
       date: moment().format('YYYY-MM-DD'),
-      name: `Test Transaction Name Account #${this.props.account.get('id')}`,
-      official_name: 'Official name',
+      name: '',
+      official_name: '',
       type: 'debit',
     });
   }

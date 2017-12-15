@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { centsToDollars } from '../data/transactions';
 import { connect } from 'react-redux';
 import { deleteAccount } from '../actions/accounts';
-import { selectActiveAccount, selectAllAccounts } from '../selectors/accounts';
+import { selectActiveAccount, selectAllAccountsSorted } from '../selectors/accounts';
 
 const mapDispatchToProps = {
   deleteAccount,
@@ -14,7 +14,7 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
   return {
     activeAccount: selectActiveAccount(state),
-    accounts: selectAllAccounts(state),
+    accounts: selectAllAccountsSorted(state),
   };
 };
 

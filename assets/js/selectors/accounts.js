@@ -4,6 +4,13 @@ export const selectActiveAccountId = state => state.activeAccount;
 
 export const selectAllAccounts = state => state.accounts;
 
+export const selectAllAccountsSorted = createSelector(
+  selectAllAccounts,
+  accounts => {
+    return accounts.sort((a, b) => a.get('name').localeCompare(b.get('name')));
+  }
+);
+
 export const selectActiveAccount = createSelector(
   selectActiveAccountId,
   selectAllAccounts,

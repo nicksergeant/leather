@@ -12,3 +12,12 @@ export const selectTransactionsForActiveAccount = createSelector(
     );
   }
 );
+
+export const selectTransactionsForActiveAccountSorted = createSelector(
+  selectTransactionsForActiveAccount,
+  transactions => {
+    return transactions.sort(
+      (b, a) => a.get('dateObj') - b.get('dateObj')
+    );
+  }
+);

@@ -24,6 +24,6 @@ defmodule Leather.Transaction do
   def changeset(%Transaction{} = transaction, attrs) do
     transaction
     |> cast(attrs, [:amount, :category, :date, :meta, :name, :official_name, :source, :type])
-    |> validate_required([:amount, :name, :official_name, :type])
+    |> validate_required([:amount, :type])
   end
 end

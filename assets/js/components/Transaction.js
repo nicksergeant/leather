@@ -100,7 +100,7 @@ class Transaction extends Component {
               this.updateName(e.target.value);
             }}
             type="text"
-            value={this.props.transaction.get('name')}
+            value={this.props.transaction.get('name') || ''}
           />
         </td>
         <td>
