@@ -6,20 +6,12 @@ defmodule Leather.Plaid.Account do
   use Ecto.Schema
 
   schema "plaid_accounts" do
-    field(:balance_available, :integer)
-    field(:balance_current, :integer)
-    field(:balance_limit, :integer)
     field(:mask, :integer)
-    # The last four digits of the Account's number.
     field(:name, :string)
-    # The name of the Account, either assigned by the user or the financial institution itself.
     field(:official_name, :string)
-    # The official name of the Account as given by the financial institution.
     field(:plaid_account_id, :string)
     field(:subtype, :string)
-    # checking, savings, money market, prepaid, etc
     field(:type, :string)
-    # depository, credit, loan, mortgage, brokerage, other
     timestamps()
     belongs_to(:user, Leather.User)
     belongs_to(:account, Leather.Account)
@@ -29,8 +21,8 @@ defmodule Leather.Plaid.Account do
     model
     |> cast(
       params,
-      ~w(user_id account_id plaid_account_id balance_available balance_current balance_limit name official_name type subtype mask)
+      ~w(account_id mask name official_name plaid_account_id subtype type user_id)
     )
-    |> validate_required([:user_id, :account_id, :name])
+    |> validate_required([:user_id, :name])
   end
 end
