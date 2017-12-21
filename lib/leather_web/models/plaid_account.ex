@@ -22,7 +22,7 @@ defmodule Leather.Plaid.Account do
     plaid_account
     |> cast(
       params,
-      ~w(account_id mask name official_name plaid_account_id subtype type user_id)
+      ~w(account_id mask name official_name plaid_account_id plaid_item_id subtype type user_id)
     )
     |> validate_required([:user_id, :name])
   end
