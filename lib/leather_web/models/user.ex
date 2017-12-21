@@ -14,6 +14,7 @@ defmodule Leather.User do
     timestamps()
     has_many(:accounts, Leather.Account)
     has_many(:plaid_accounts, Leather.Plaid.Account)
+    has_many(:plaid_items, Leather.Plaid.Item)
   end
 
   @doc false
