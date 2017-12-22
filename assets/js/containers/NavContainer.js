@@ -32,6 +32,25 @@ class NavContainer extends Component {
     const accountSlug = this.props.defaultAccount
       ? `/${this.props.defaultAccount.get('id')}`
       : '';
+
+    const linkLink = window.LEATHER.plaidPublicKey ? (
+      <Link
+        className={`navbar-item ${this.panelIsActive('link')}`}
+        to={`/link`}
+      >
+        <span
+          className="icon"
+          style={{
+            color: '#394248',
+            marginRight: '.5em',
+          }}
+        >
+          <i className="fa fa-link" />
+        </span>
+        Link
+      </Link>
+    ) : null;
+
     return (
       <nav className="navbar" style={{ background: '#F7F5EF' }}>
         <div className="navbar-brand">
@@ -112,6 +131,7 @@ class NavContainer extends Component {
               </span>
               Budgets
             </Link>
+            {linkLink}
           </div>
           <div className="navbar-end">
             <div className="navbar-item has-dropdown is-hoverable">

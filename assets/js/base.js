@@ -3,6 +3,7 @@ import BudgetsContainer from './containers/BudgetsContainer';
 import Dashboard from './components/Dashboard';
 import ForecastContainer from './containers/ForecastContainer';
 import Home from './components/Home';
+import LinkContainer from './containers/LinkContainer';
 import Raven from 'raven-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -36,6 +37,9 @@ if (rootElem) {
   if (window.LEATHER && window.LEATHER.user) {
     socket.connect();
     socket.onOpen(() => {
+      const linkRoute = window.LEATHER.plaidPublicKey ? (
+        <Route path="/link" component={LinkContainer} />
+      ) : null;
       const router = (
         <Router history={history}>
           <Route component={AppContainer}>
@@ -43,6 +47,7 @@ if (rootElem) {
             <Route path="/:accountId/budgets" component={BudgetsContainer} />
             <Route path="/:accountId/forecast" component={ForecastContainer} />
             <Route path="/:accountId/stashes" component={StashesContainer} />
+            {linkRoute}
             <Route
               path="/:accountId/transactions"
               component={TransactionsContainer}

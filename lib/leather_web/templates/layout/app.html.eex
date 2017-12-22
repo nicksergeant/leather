@@ -13,11 +13,12 @@
       <script type="text/javascript">
         window.LEATHER = {
           csrfToken: '<%= Plug.CSRFProtection.get_csrf_token() %>',
+          env: '<%= Mix.env %>',
+          plaidPublicKey: '<%= System.get_env("PLAID_PUBLIC_KEY") %>',
           user: {
             email: '<%= @current_user.email %>',
             token: '<%= @user_token %>'
-          },
-          env: '<%= Mix.env %>'
+          }
         }
       </script>
     <% end %>
@@ -30,6 +31,9 @@
       <p style="margin: 10px;" class="notification is-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <% end %>
     <%= render @view_module, @view_template, assigns %>
+    <%= if @current_user && System.get_env("PLAID_PUBLIC_KEY") do %>
+      <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <% end %>
     <script src="<%= static_path(@conn, "/js/base.js") %>"></script>
     <script src="https://use.fontawesome.com/440b86ad14.js"></script>
   </body>

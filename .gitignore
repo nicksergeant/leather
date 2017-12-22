@@ -26,7 +26,4 @@ npm-debug.log
 # variables.
 /config/*.secret.exs
 
-
-# IntelliJ files
-leather.iml
-.idea
+.env

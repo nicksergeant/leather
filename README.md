@@ -48,3 +48,9 @@ If you intend to use this instance securely, you must set the `HOSTNAME` environ
 8. `heroku domains:add <your-domain>`
 9. `heroku config:set HOSTNAME="<your-domain>"`
 10. `heroku config:set GZIP_ENABLED="true"`
+
+## Integration with [Plaid](https://plaid.com/)
+
+1. `heroku config:set PLAID_CLIENT_ID='<plaid-client-id>'`
+2. `heroku config:set PLAID_PUBLIC_KEY='<plaid-public-key>'`
+3. `heroku config:set PLAID_SECRET='<plaid-secret>'`
