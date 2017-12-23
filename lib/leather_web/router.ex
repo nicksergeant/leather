@@ -21,6 +21,12 @@ defmodule LeatherWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  scope "/plaid", LeatherWeb do
+    pipe_through(:api)
+    post("/webhook", PlaidController, :webhook)
+    post("/exchange", PlaidController, :exchange)
+  end
+
   scope "/", LeatherWeb do
     pipe_through(:browser)
     delete("/logout", UserController, :logout)

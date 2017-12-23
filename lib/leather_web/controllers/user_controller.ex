@@ -8,6 +8,7 @@ defmodule LeatherWeb.UserController do
     when action in [:login, :login_form, :signup, :signup_form]
   )
 
+  alias Leather.Auth
   alias Leather.Repo
   alias Leather.User
 
@@ -21,7 +22,7 @@ defmodule LeatherWeb.UserController do
   end
 
   def login(conn, %{"session" => %{"email" => email, "password" => pass}}) do
-    case Leather.Auth.login_by_email_and_pass(conn, email, pass, repo: Repo) do
+    case Auth.login_by_email_and_pass(conn, email, pass, repo: Repo) do
       {:ok, conn} ->
         conn
         |> redirect(to: "/")
@@ -35,7 +36,7 @@ defmodule LeatherWeb.UserController do
 
   def logout(conn, _) do
     conn
-    |> Leather.Auth.logout()
+    |> Auth.logout()
     |> redirect(to: "/")
   end
 
@@ -45,7 +46,7 @@ defmodule LeatherWeb.UserController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
-        |> Leather.Auth.login(user)
+        |> Auth.login(user)
         |> put_flash(:info, "#{user.email} created!")
         |> redirect(to: "/")
 

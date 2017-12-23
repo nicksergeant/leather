@@ -33,7 +33,7 @@ class LinkContainer extends Component {
         env: 'sandbox',
         key: window.LEATHER.plaidPublicKey,
         product: ['transactions'],
-        webhook: 'https://requestb.in',
+        webhook: '...',
         onSuccess: function(public_token, metadata) {
           console.log(public_token, metadata);
         },
