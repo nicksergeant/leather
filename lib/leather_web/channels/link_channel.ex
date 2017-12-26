@@ -25,7 +25,7 @@ defmodule LeatherWeb.LinkChannel do
     # TODO: exchange params["public_token"] with Plaid for access_token and item_id, then:
     # - create Plaid.Item w/ access_token, item_id, and params["metadata"]
     # - create associated Plaid.Accounts
-    broadcast!(socket, "exchange_token_linked", %{foo: 1})
+    broadcast!(socket, "plaid_item_added", %{foo: 1})
     {:reply, :ok, socket}
   end
 end

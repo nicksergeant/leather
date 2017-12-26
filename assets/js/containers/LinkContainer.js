@@ -39,7 +39,11 @@ class LinkContainer extends Component {
         key: window.LEATHER.plaidPublicKey,
         product: ['transactions'],
         onSuccess: (publicToken, metadata) => {
-          this.props.linkExchangeToken(this.props.channel, publicToken, metadata);
+          this.props.linkExchangeToken(
+            this.props.channel,
+            publicToken,
+            metadata
+          );
         },
       }),
     };
@@ -72,8 +76,8 @@ class LinkContainer extends Component {
       channel.join().receive('ok', () => {
         // TODO: receive existing plaid_items
       });
-      channel.on('exchange_token_linked', acc => {
-        console.log('exchange token linked');
+      channel.on('plaid_item_added', acc => {
+        console.log('plaid item added');
       });
     }
   }
