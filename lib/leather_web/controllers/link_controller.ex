@@ -1,4 +1,4 @@
-defmodule LeatherWeb.PlaidController do
+defmodule LeatherWeb.LinkController do
   @moduledoc false
 
   use LeatherWeb, :controller
@@ -10,6 +10,8 @@ defmodule LeatherWeb.PlaidController do
   end
 
   def webhook(conn, params) do
-    json(conn, params)
+    json(conn, %{
+      status: "ok"
+    })
   end
 end

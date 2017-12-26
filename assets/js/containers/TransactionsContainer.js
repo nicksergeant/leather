@@ -15,7 +15,7 @@ import {
   centsToDollars,
   dollarsToCents,
   stringIsNumber,
-} from '../data/transactions';
+} from '../data/utils';
 import {
   addTransaction,
   addTransactions,

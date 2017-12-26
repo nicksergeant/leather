@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import actionTypes from '../actions/actionTypes';
 import moment from 'moment';
-import { centsToDollars } from '../data/transactions';
+import { centsToDollars } from '../data/utils';
 
 export const transactions = (state = Immutable.List(), { type, payload }) => {
   switch (type) {

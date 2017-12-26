@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { centsToDollars } from '../data/transactions';
+import { centsToDollars } from '../data/utils';
 import { connect } from 'react-redux';
 import {
   selectActiveAccount,
