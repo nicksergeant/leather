@@ -3,10 +3,10 @@ defmodule LeatherWeb.UserSocket do
 
   use Phoenix.Socket
 
-  channel("accounts", LeatherWeb.AccountsChannel)
+  channel("accounts:*", LeatherWeb.AccountsChannel)
   channel("budgets:*", LeatherWeb.BudgetsChannel)
   channel("forecast:*", LeatherWeb.ForecastChannel)
-  channel("link", LeatherWeb.LinkChannel)
+  channel("link:*", LeatherWeb.LinkChannel)
   channel("stashes:*", LeatherWeb.StashesChannel)
   channel("transactions:*", LeatherWeb.TransactionsChannel)
   transport(:websocket, Phoenix.Transports.WebSocket)

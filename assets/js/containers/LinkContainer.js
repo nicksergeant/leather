@@ -16,7 +16,7 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
   return {
     activePanel: selectActivePanel(state),
-    channel: selectChannelByName(state, 'link'),
+    channel: selectChannelByName(state, `link:${window.LEATHER.user.id}`),
   };
 };
 
@@ -65,13 +65,15 @@ class LinkContainer extends Component {
     const { channel } = props;
 
     if (!channel) {
-      props.initChannel('link');
+      props.initChannel(`link:${window.LEATHER.user.id}`);
     }
 
     if (channel && channel.state === 'closed') {
-      channel.join().receive('ok', () => {});
-      channel.on('link_account', acc => {
-        console.log('link account recvd');
+      channel.join().receive('ok', () => {
+        // TODO: receive existing plaid_items
+      });
+      channel.on('exchange_token_linked', acc => {
+        console.log('exchange token linked');
       });
     }
   }

@@ -11,7 +11,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    channel: selectChannelByName(state, 'accounts'),
+    channel: selectChannelByName(state, `accounts:${window.LEATHER.user.id}`),
   };
 };
 

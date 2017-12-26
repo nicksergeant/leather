@@ -32,7 +32,7 @@ const mapStateToProps = (state, props) => {
     account: selectActiveAccount(state),
     accounts: selectAllAccounts(state),
     accountId,
-    channel: selectChannelByName(state, 'accounts'),
+    channel: selectChannelByName(state, `accounts:${window.LEATHER.user.id}`),
   };
 };
 
@@ -66,7 +66,7 @@ class AppContainer extends Component {
     const channel = props.channel;
 
     if (!channel) {
-      props.initChannel('accounts');
+      props.initChannel(`accounts:${window.LEATHER.user.id}`);
     }
 
     if (channel && channel.state === 'closed') {

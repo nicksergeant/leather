@@ -7,18 +7,24 @@ defmodule LeatherWeb.AccountsChannel do
 
   use LeatherWeb, :channel
 
-  def join("accounts", _params, socket) do
-    accounts = Ecto.assoc(socket.assigns.user, :accounts)
+  def join("accounts:" <> user_id, _params, socket) do
+    is_authorized = user_id == Integer.to_string(socket.assigns.user.id)
 
-    accounts =
-      accounts
-      |> Repo.all()
+    if is_authorized do
+      accounts = Ecto.assoc(socket.assigns.user, :accounts)
 
-    resp = %{
-      accounts: Phoenix.View.render_many(accounts, LeatherWeb.AccountView, "account.json")
-    }
+      accounts =
+        accounts
+        |> Repo.all()
 
-    {:ok, resp, socket}
+      resp = %{
+        accounts: Phoenix.View.render_many(accounts, LeatherWeb.AccountView, "account.json")
+      }
+
+      {:ok, resp, socket}
+    else
+      {:error, %{status: 404, message: "Not authorized."}}
+    end
   end
 
   def handle_in(event, params, socket) do
