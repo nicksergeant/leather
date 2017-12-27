@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :leather,
+  plaid_env: "sandbox" # will be "production"
+
 config :leather, LeatherWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   check_origin:

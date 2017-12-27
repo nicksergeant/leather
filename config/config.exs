@@ -1,6 +1,11 @@
 use Mix.Config
 
-config :leather, ecto_repos: [Leather.Repo]
+config :leather,
+  ecto_repos: [Leather.Repo],
+  plaid_client_id: System.get_env("PLAID_CLIENT_ID"),
+  plaid_env: "sandbox",
+  plaid_public_key: System.get_env("PLAID_PUBLIC_KEY"),
+  plaid_secret: System.get_env("PLAID_SECRET")
 
 config :leather, LeatherWeb.Endpoint,
   url: [host: "localhost"],

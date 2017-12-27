@@ -14,7 +14,7 @@
         window.LEATHER = {
           csrfToken: '<%= Plug.CSRFProtection.get_csrf_token() %>',
           env: '<%= Mix.env %>',
-          plaidPublicKey: '<%= System.get_env("PLAID_PUBLIC_KEY") %>',
+          plaidPublicKey: '<%= Application.get_env(:leather, :plaid_public_key) %>',
           user: {
             email: '<%= @current_user.email %>',
             id: '<%= @current_user.id %>',
@@ -32,7 +32,7 @@
       <p style="margin: 10px;" class="notification is-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <% end %>
     <%= render @view_module, @view_template, assigns %>
-    <%= if @current_user && System.get_env("PLAID_PUBLIC_KEY") do %>
+    <%= if @current_user && Application.get_env(:leather, :plaid_public_key) do %>
       <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
     <% end %>
     <script src="<%= static_path(@conn, "/js/base.js") %>"></script>

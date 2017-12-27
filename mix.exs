@@ -42,6 +42,7 @@ defmodule Leather.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.1", [only: :dev]},
       {:phoenix_pubsub, "~> 1.0"},
+      {:poison, "~> 3.1"},
       {:postgrex, "~> 0.13"},
       {:sentry, "~> 6.0"}
     ]

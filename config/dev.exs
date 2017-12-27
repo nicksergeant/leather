@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :leather,
+  plaid_env: "sandbox" # will be "development"
+
 config :leather, LeatherWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
