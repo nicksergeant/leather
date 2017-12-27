@@ -31,20 +31,19 @@ defmodule Leather.Mixfile do
 
   defp deps do
     [
-      {:bcrypt_elixir, "~> 0.12.1"},
-      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:comeonin, "~> 4.0.3"},
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.8.10", only: [:dev, :test], runtime: false},
-      {:gettext, "~> 0.11"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:gettext, "~> 0.14"},
       {:httpoison, "~> 0.13"},
-      {:phoenix, "~> 1.3.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, "~> 1.3"},
+      {:phoenix_ecto, "~> 3.3"},
       {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", [only: :dev]},
+      {:phoenix_live_reload, "~> 1.1", [only: :dev]},
       {:phoenix_pubsub, "~> 1.0"},
-      {:plaidex, "~> 0.1.0"},
-      {:postgrex, ">= 0.0.0"},
-      {:sentry, "~> 6.0.0"}
+      {:postgrex, "~> 0.13"},
+      {:sentry, "~> 6.0"}
     ]
   end
 
