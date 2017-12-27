@@ -13,7 +13,7 @@ config :leather, LeatherWeb.Endpoint,
     port: 443
   ]
 
-config :logger, level: :info
+config :logger, level: :error
 
 config :leather, Leather.Repo,
   adapter: Ecto.Adapters.Postgres,
