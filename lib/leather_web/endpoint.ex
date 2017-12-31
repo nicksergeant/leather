@@ -3,6 +3,8 @@ defmodule LeatherWeb.Endpoint do
 
   use Phoenix.Endpoint, otp_app: :leather
 
+  require Logger
+
   socket("/socket", LeatherWeb.UserSocket)
 
   plug(
@@ -43,8 +45,15 @@ defmodule LeatherWeb.Endpoint do
 
   plug(LeatherWeb.Router)
 
-  @doc "Callback invoked for dynamically configuring the endpoint.\n\nIt receives the endpoint configuration and checks if\nconfiguration should be loaded from the system environment.\n"
+  @doc """
+  Callback invoked for dynamically configuring the endpoint.
+  It receives the endpoint configuration and checks if\nconfiguration should be loaded from the system environment.
+  """
   def init(_key, config) do
+    if Application.get_env(:leather, :plaid_client_id) do
+      Logger.info("Running with Plaid integration enabled.")
+    end
+
     if config[:load_from_system_env] do
       port = System.get_env("PORT") || raise("expected the PORT environment variable to be set")
       {:ok, Keyword.put(config, :http, [:inet6, {:port, port}])}

@@ -24,6 +24,18 @@ Follow [@leatherapp on Twitter](https://twitter.com/leatherapp) for updates.
 7. `mix phoenix.server`
 8. Visit [http://localhost:4000/](http://localhost:4000/).
 
+**With [Plaid](https://plaid.com/) integration:**
+
+Create a `.env` file in the root of the project with the following contents:
+
+```
+export PLAID_CLIENT_ID=<plaid-client-id>
+export PLAID_PUBLIC_KEY=<plaid-public-key>
+export PLAID_SECRET=<plaid-secret>
+```
+
+Then run `source .env && mix phoenix.server`.
+
 ## Automatic deploy to Heroku
 
 You can click the button below to automatically deploy Leather to Heroku.
