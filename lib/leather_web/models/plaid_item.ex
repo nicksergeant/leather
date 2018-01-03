@@ -4,7 +4,6 @@ defmodule Leather.Plaid.Item do
   alias Leather.Plaid.Item
 
   import Ecto.Changeset
-  import Ecto.Query
 
   use Ecto.Schema
 
@@ -14,7 +13,7 @@ defmodule Leather.Plaid.Item do
     field(:plaid_item_id, :string)
     timestamps()
     belongs_to(:user, Leather.User)
-    has_many(:plaid_accounts, Leather.Plaid.Account)
+    has_many(:plaid_accounts, Leather.Plaid.Account, foreign_key: :plaid_item_id)
   end
 
   @doc false
