@@ -3,20 +3,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { initChannel } from '../actions/channels';
 import { linkExchangeToken } from '../actions/link';
+import { plaidItemAdded, setPlaidItems } from '../actions/plaidItems';
 import { selectActivePanel } from '../selectors/panels';
+import { selectAllPlaidItems } from '../selectors/plaidItems';
 import { selectChannelByName } from '../selectors/channels';
 import { setActivePanel } from '../actions/panels';
 
 const mapDispatchToProps = {
   initChannel,
   linkExchangeToken,
+  plaidItemAdded,
   setActivePanel,
+  setPlaidItems,
 };
 
 const mapStateToProps = state => {
   return {
     activePanel: selectActivePanel(state),
     channel: selectChannelByName(state, `link:${window.LEATHER.user.id}`),
+    plaidItems: selectAllPlaidItems(state),
   };
 };
 
@@ -73,11 +78,11 @@ class LinkContainer extends Component {
     }
 
     if (channel && channel.state === 'closed') {
-      channel.join().receive('ok', () => {
-        // TODO: receive existing plaid_items
+      channel.join().receive('ok', ({ plaid_items: plaidItems }) => {
+        props.setPlaidItems(plaidItems);
       });
-      channel.on('plaid_item_added', acc => {
-        console.log('plaid item added');
+      channel.on('plaid_item_added', plaidItem => {
+        props.plaidItemAdded(plaidItem);
       });
     }
   }
@@ -87,6 +92,7 @@ class LinkContainer extends Component {
   }
 
   render() {
+    const { plaidItems } = this.props;
     return (
       <div className="column">
         <section className="section">
@@ -108,35 +114,25 @@ class LinkContainer extends Component {
           </p>
           <nav className="panel" style={{ marginTop: '3rem' }}>
             <p className="panel-heading">Linked Accounts</p>
-            <div
-              className="panel-block"
-              style={{ alignItems: 'normal', flexDirection: 'column' }}
-            >
-              <div style={{ alignItems: 'center', display: 'flex' }}>
-                <span className="panel-icon">
-                  <i className="fa fa-bank" />
-                </span>
-                American Express
-              </div>
-              <ul style={{ marginLeft: '26px' }}>
-                <li>- Blue Cash Rewards (2151)</li>
-                <li>- Everyday (0293)</li>
-              </ul>
-            </div>
-            <div
-              className="panel-block"
-              style={{ alignItems: 'normal', flexDirection: 'column' }}
-            >
-              <div style={{ alignItems: 'center', display: 'flex' }}>
-                <span className="panel-icon">
-                  <i className="fa fa-bank" />
-                </span>
-                USAA
-              </div>
-              <ul style={{ marginLeft: '26px' }}>
-                <li>- Checking (9114)</li>
-              </ul>
-            </div>
+            {plaidItems.map(plaidItem => {
+              return (
+                <div
+                  className="panel-block"
+                  key={plaidItem.get('id')}
+                  style={{ alignItems: 'normal', flexDirection: 'column' }}
+                >
+                  <div style={{ alignItems: 'center', display: 'flex' }}>
+                    <span className="panel-icon">
+                      <i className="fa fa-bank" />
+                    </span>
+                    {plaidItem.get('institution_name')}
+                  </div>
+                  <ul style={{ marginLeft: '26px' }}>
+                    <li>...retrieving accounts (this may take a bit)</li>
+                  </ul>
+                </div>
+              );
+            })}
           </nav>
         </section>
       </div>

@@ -1,15 +1,12 @@
 import Immutable from 'immutable';
 import actionTypes from '../actions/actionTypes';
 
-export const accounts = (
-  state = Immutable.List(),
-  { type, payload }
-) => {
+export const accounts = (state = Immutable.List(), { type, payload }) => {
   switch (type) {
     case actionTypes.ACCOUNT_ADDED:
       return state.push(Immutable.fromJS(payload));
     case actionTypes.ACCOUNT_DELETED:
-      return state.filter((account) => {
+      return state.filter(account => {
         return account.get('id') !== payload.id;
       });
     case actionTypes.ACCOUNT_UPDATED:

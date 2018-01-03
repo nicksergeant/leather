@@ -10,7 +10,7 @@ export const linkExchangeToken = (
   channel
     .push('link_exchange_token', { public_token, metadata })
     .receive('ok', (resp) => {
-      console.log('received ok', resp)
+      // Show alert good.
     })
     .receive('error', () => {
       dispatch({ type: actionTypes.LINK_EXCHANGE_TOKEN_FAILURE });

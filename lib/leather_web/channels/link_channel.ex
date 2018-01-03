@@ -4,8 +4,11 @@ defmodule LeatherWeb.LinkChannel do
   require Logger
 
   alias Leather.Account
+  alias Leather.Plaid.Item
   alias Leather.Repo
   alias Leather.User
+  alias LeatherWeb.PlaidItemView
+  alias Phoenix.View
 
   use LeatherWeb, :channel
 
@@ -13,8 +16,17 @@ defmodule LeatherWeb.LinkChannel do
     is_authorized = user_id == Integer.to_string(socket.assigns.user.id)
 
     if is_authorized do
-      # TODO: return plaid_items
-      {:ok, socket}
+      plaid_items = Ecto.assoc(socket.assigns.user, :plaid_items)
+
+      plaid_items =
+        plaid_items
+        |> Repo.all()
+
+      resp = %{
+        plaid_items: View.render_many(plaid_items, PlaidItemView, "plaid_item.json")
+      }
+
+      {:ok, resp, socket}
     else
       {:error, %{status: 404, message: "Not authorized."}}
     end
@@ -43,11 +55,32 @@ defmodule LeatherWeb.LinkChannel do
     case response do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         body = Poison.decode!(body)
-        IO.inspect(body)
-        # - create Plaid.Item w/ access_token, item_id, and params["metadata"]
-        # - create associated Plaid.Accounts
-        # broadcast!(socket, "plaid_item_added", %{id: 1})
-        {:reply, :ok, socket}
+
+        if body["access_token"] do
+          changeset =
+            user
+            |> Ecto.build_assoc(:plaid_items)
+            |> Item.changeset(%{
+              institution_name: params["metadata"]["institution"]["name"],
+              plaid_access_token: body["access_token"],
+              plaid_item_id: body["item_id"]
+            })
+
+          case Repo.insert(changeset) do
+            {:ok, plaid_item} ->
+              # - create associated Plaid.Accounts (might need to hit accounts/get)
+              rendered_plaid_item =
+                View.render(PlaidItemView, "plaid_item.json", %{plaid_item: plaid_item})
+
+              broadcast!(socket, "plaid_item_added", rendered_plaid_item)
+              {:reply, :ok, socket}
+
+            {:error, changeset} ->
+              {:reply, {:error, %{errors: changeset}}, socket}
+          end
+        else
+          {:reply, :error, socket}
+        end
 
       {:ok, %HTTPoison.Response{status_code: 400, body: body}} ->
         Logger.error("Plaid error at #{url}: #{body}")

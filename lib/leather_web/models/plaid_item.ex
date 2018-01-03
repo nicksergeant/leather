@@ -9,6 +9,7 @@ defmodule Leather.Plaid.Item do
   use Ecto.Schema
 
   schema "plaid_items" do
+    field(:institution_name, :string)
     field(:plaid_access_token, :string)
     field(:plaid_item_id, :string)
     timestamps()
@@ -19,7 +20,7 @@ defmodule Leather.Plaid.Item do
   @doc false
   def changeset(%Item{} = plaid_item, attrs \\ :invalid) do
     plaid_item
-    |> cast(attrs, [:plaid_access_token, :plaid_item_id])
-    |> validate_required([:plaid_access_token, :plaid_item_id, :user_id])
+    |> cast(attrs, [:institution_name, :plaid_access_token, :plaid_item_id])
+    |> validate_required([:institution_name, :plaid_access_token, :plaid_item_id, :user_id])
   end
 end
